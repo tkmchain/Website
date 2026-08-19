@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tkmchain - Download Wallet and Miner</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏️</text></svg>"/>
+    <meta name="description" content="Download the Tkmchain wallet, node, and miner builds with RandomX, TKMSHIELD1 shielded privacy, and ML-DSA-87 quantum-resistant account support." />
+    <style>
+        /* ============================================================
+           CSS Variables & Reset (same as index)
+           ============================================================ */
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-card: #1a2744;
+            --bg-card-hover: #243b5e;
+            --bg-gradient: linear-gradient(135deg, #0a0e1a 0%, #1a2744 50%, #0f3460 100%);
+            --text-primary: #e8edf5;
+            --text-secondary: #8899bb;
+            --text-muted: #4a5a7a;
+            --accent: #f0b90b;
+            --accent-hover: #d4a00a;
+            --accent-glow: rgba(240, 185, 11, 0.2);
+            --success: #00d4aa;
+            --danger: #ff4757;
+            --warning: #ffa502;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(240, 185, 11, 0.3);
+            --radius: 16px;
+            --radius-sm: 8px;
+            --shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+            --transition: 0.3s ease;
+            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        a:hover {
+            color: var(--accent-hover);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================================
+           Scrollbar
+           ============================================================ */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        /* ============================================================
+           Header / Navigation (same as index)
+           ============================================================ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10, 14, 26, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+            transition: var(--transition);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .logo .icon {
+            font-size: 1.8rem;
+        }
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+        .nav a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav a:hover {
+            color: var(--text-primary);
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        .nav a:hover::after {
+            width: 100%;
+        }
+        .nav a.active {
+            color: var(--text-primary);
+        }
+        .nav a.active::after {
+            width: 100%;
+        }
+        .nav .btn {
+            background: var(--accent);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .nav .btn:hover {
+            background: var(--accent-hover);
+            color: #000;
+        }
+        .nav .btn::after {
+            display: none;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* ============================================================
+           Download Hero
+           ============================================================ */
+        .download-hero {
+            padding: 140px 0 60px;
+            background: var(--bg-gradient);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            flex: 1;
+        }
+        .download-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(240, 185, 11, 0.06) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 50%, rgba(0, 212, 170, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .download-hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .download-hero h1 .highlight {
+            color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .download-hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        /* ============================================================
+           Download Cards
+           ============================================================ */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .download-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 36px 24px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .download-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow);
+        }
+        .download-card .os-icon {
+            font-size: 4rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .download-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+        .download-card .version {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .download-card .size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+        .download-card .description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .download-card .checksum {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.04);
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 16px;
+            word-break: break-all;
+            width: 100%;
+        }
+
+        .btn-download {
+            padding: 12px 32px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: #000;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-download:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(240, 185, 11, 0.3);
+        }
+
+        .btn-download.linux {
+            background: #627eea;
+            color: #fff;
+        }
+        .btn-download.linux:hover {
+            background: #4a6ad4;
+            box-shadow: 0 8px 30px rgba(98, 126, 234, 0.3);
+        }
+
+        .btn-download.macos {
+            background: #6c8cff;
+            color: #fff;
+        }
+        .btn-download.macos:hover {
+            background: #4a6ad4;
+            box-shadow: 0 8px 30px rgba(108, 140, 255, 0.3);
+        }
+
+        /* ============================================================
+           Installation Instructions
+           ============================================================ */
+        .instructions {
+            margin-top: 60px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 40px;
+            border: 1px solid var(--border);
+            text-align: left;
+            position: relative;
+        }
+        .instructions h3 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .instructions .steps {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .instructions .step {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+        .instructions .step .num {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            font-weight: 700;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+        .instructions .step h4 {
+            margin-bottom: 4px;
+        }
+        .instructions .step p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .instructions .step code {
+            background: var(--bg-primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+
+        /* ============================================================
+           Footer (same as index)
+           ============================================================ */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 40px 0 24px;
+            margin-top: auto;
+        }
+        .footer .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+        .footer h4 {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+        .footer ul {
+            list-style: none;
+        }
+        .footer ul li {
+            margin-bottom: 6px;
+        }
+        .footer ul a {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .footer ul a:hover {
+            color: var(--text-primary);
+        }
+        .footer .bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .footer .socials {
+            display: flex;
+            gap: 16px;
+        }
+        .footer .socials a {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        .footer .socials a:hover {
+            color: var(--accent);
+        }
+
+        /* ============================================================
+           Responsive
+           ============================================================ */
+        @media (max-width: 992px) {
+            .download-grid { grid-template-columns: repeat(2, 1fr); }
+            .instructions .steps { grid-template-columns: 1fr; }
+            .footer .grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-secondary);
+                padding: 20px 24px;
+                border-bottom: 1px solid var(--border);
+                gap: 16px;
+            }
+            .nav.open {
+                display: flex;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .download-hero h1 { font-size: 2.2rem; }
+            .download-grid { grid-template-columns: 1fr; }
+            .footer .grid { grid-template-columns: 1fr; }
+            .instructions { padding: 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            .download-hero h1 { font-size: 1.8rem; }
+            .btn-download { font-size: 0.9rem; padding: 10px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="header" id="header">
+    <div class="container">
+        <a href="index.html" class="logo">
+            <span class="icon">⛏️</span>
+            <span>Tkm</span>chain
+        </a>
+
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav class="nav" id="nav">
+            <a href="index.html#about">About</a>
+            <a href="index.html#apps">Apps</a>
+            <a href="index.html#privacy">Privacy + PQ</a>
+            <a href="index.html#protocol">Protocol</a>
+            <a href="index.html#miner">Mining</a>
+            <a href="download.html" class="active">Downloads</a>
+            <a href="https://wallet.tkmchain.site">Web Wallet</a>
+            <a href="https://block.tkmchain.site">Block Explorer</a>
+            <a href="index.html#" class="btn" id="connectWalletBtn">Connect Wallet</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ============================================================
+     DOWNLOAD HERO
+     ============================================================ -->
+<section class="download-hero">
+    <div class="container">
+        <h1>⬇️ Download <span class="highlight">Tkmchain</span> Node</h1>
+        <p>
+            Choose your platform and run the latest Tkmchain node.
+            Release 1.18.0-privacy-pq includes canonical Monero-style RandomX verification, TKMSHIELD1 privacy, and ML-DSA-87 post-quantum account support.
+        </p>
+
+        <!-- ============================================================
+             DOWNLOAD GRID
+             ============================================================ -->
+        <div class="download-grid">
+
+            <!-- XMRig Ubuntu AMD64 -->
+            <div class="download-card">
+                <span class="os-icon">⛏️</span>
+                <h3>XMRig for Ubuntu</h3>
+                <div class="version">XMRig 6.26.0 TKM · AMD64</div>
+                <div class="size">2.1 MB</div>
+                <p class="description">
+                    Static TKMChain XMRig miner with <code>rx/tkm</code> and canonical 256-bit RandomX target checks for 64-bit Ubuntu systems.
+                </p>
+                <div class="checksum">SHA256: a3725db7e3b259c7d2109cd9a18664ae217a5d9488a367b5f97fbf4a757c9a9f</div>
+                <a href="https://tkmchain.site/download/xmrig-ubuntu-amd64.tar.gz" class="btn-download linux" download>
+                    ⬇️ Download XMRig Ubuntu AMD64
+                </a>
+            </div>
+
+            <!-- Windows AMD64 -->
+            <div class="download-card"><span class="os-icon">🪟</span><h3>Windows AMD64</h3><div class="version">1.18.0-privacy-pq · 64-bit x86</div><div class="size">19.9 MB</div><p class="description">TKMChain node with native RandomX for 64-bit Windows systems.</p><div class="checksum">SHA256: fc7ffc2020fd014f330f11985e7605ce420b73e617d6ab40282b33d7921bed96</div><a href="https://tkmchain.site/download/gtkm-windows-amd64.zip" class="btn-download" download>⬇️ Download Windows AMD64</a></div>
+
+            <!-- Windows 386 -->
+            <div class="download-card"><span class="os-icon">🪟</span><h3>Windows 386</h3><div class="version">1.18.0-privacy-pq · 32-bit x86</div><div class="size">20.5 MB</div><p class="description">TKMChain node with native RandomX for 32-bit Windows systems.</p><div class="checksum">SHA256: 00e4736bda2fb56916a06cc3aa1727a7ebda6f07bb37ea1441d5524c1d90a0ac</div><a href="https://tkmchain.site/download/gtkm-windows-386.zip" class="btn-download" download>⬇️ Download Windows 386</a></div>
+
+            <!-- macOS AMD64 -->
+            <div class="download-card"><span class="os-icon">🍎</span><h3>macOS AMD64</h3><div class="version">1.18.0-privacy-pq · Intel x86-64</div><div class="size">20.6 MB</div><p class="description">TKMChain node with native RandomX for Intel-based Macs.</p><div class="checksum">SHA256: 58b954b03bf7f755d3e547fc2767f92d74b4d8fa682db0eb9e3a454e3f3f01bb</div><a href="https://tkmchain.site/download/darwin-amd64.tar.gz" class="btn-download macos" download>⬇️ Download macOS AMD64</a></div>
+
+            <!-- macOS ARM64 -->
+            <div class="download-card"><span class="os-icon">🍎</span><h3>macOS ARM64</h3><div class="version">1.18.0-privacy-pq · Apple Silicon</div><div class="size">19.7 MB</div><p class="description">TKMChain node with native RandomX for Apple Silicon Macs.</p><div class="checksum">SHA256: 23f20910fc1d0fcb2630f8a4868d292edb181499c20dcf38a5b82c5d104d68cd</div><a href="https://tkmchain.site/download/darwin-arm64.tar.gz" class="btn-download macos" download>⬇️ Download macOS ARM64</a></div>
+
+            <!-- Linux AMD64 -->
+            <div class="download-card"><span class="os-icon">🐧</span><h3>Linux AMD64</h3><div class="version">1.18.0-privacy-pq · 64-bit x86</div><div class="size">19.4 MB</div><p class="description">TKMChain node with native RandomX for 64-bit Intel and AMD Linux systems.</p><div class="checksum">SHA256: dd98e9a1f41ddcc7ee60a4723166fafa77d9ef5bfd11a1b29c8d71cbda5bc239</div><a href="https://tkmchain.site/download/linux-amd64.tar.gz" class="btn-download linux" download>⬇️ Download Linux AMD64</a></div>
+
+            <!-- Linux 386 -->
+            <div class="download-card"><span class="os-icon">🐧</span><h3>Linux 386</h3><div class="version">1.18.0-privacy-pq · 32-bit x86</div><div class="size">20.2 MB</div><p class="description">TKMChain node with native RandomX for 32-bit x86 Linux systems.</p><div class="checksum">SHA256: 6cd9c814524ea6556acceaee1559c56202cd434e089a738392f0fbb46e14bd4b</div><a href="https://tkmchain.site/download/linux-386.tar.gz" class="btn-download linux" download>⬇️ Download Linux 386</a></div>
+
+            <!-- Linux ARM64 -->
+            <div class="download-card"><span class="os-icon">🐧</span><h3>Linux ARM64</h3><div class="version">1.18.0-privacy-pq · AArch64</div><div class="size">17.7 MB</div><p class="description">TKMChain node with native RandomX for 64-bit ARM Linux systems.</p><div class="checksum">SHA256: d7cafd1c120ffcb8cd2db328b7e8a5821fe190acf0223565a90aace758872052</div><a href="https://tkmchain.site/download/linux-arm64.tar.gz" class="btn-download linux" download>⬇️ Download Linux ARM64</a></div>
+
+        </div>
+
+        <!-- ============================================================
+             INSTALLATION INSTRUCTIONS
+             ============================================================ -->
+        <div class="instructions">
+            <h3>📖 Installation Guide</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="num">1</div>
+                    <h4>Download the Node</h4>
+                    <p>Choose your platform above and download the latest release.</p>
+                </div>
+                <div class="step">
+                    <div class="num">2</div>
+                    <h4>Verify the Checksum</h4>
+                    <p>Compare the SHA256 hash to ensure the file is authentic.</p>
+                </div>
+                <div class="step">
+                    <div class="num">3</div>
+                    <h4>Install &amp; Run</h4>
+                    <p>
+                        <strong>Windows:</strong> Extract the <code>.zip</code> archive and run <code>gtkm.exe</code>.<br>
+                        <strong>Linux:</strong> Extract the <code>.tar.gz</code> archive and run <code>./gtkm</code>.<br>
+                        <strong>macOS:</strong> Extract the <code>.tar.gz</code> archive and run <code>./gtkm</code>.
+                    </p>
+                </div>
+                <div class="step">
+                    <div class="num">4</div>
+                    <h4>Connect to Network</h4>
+                    <p>The wallet will automatically connect to the Tkmchain network. Start mining, managing accounts, or deploying contracts.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Home -->
+        <div style="margin-top: 40px; text-align: center;">
+            <a href="index.html" class="btn-hero secondary" style="padding: 10px 28px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; border: 1px solid var(--border); display: inline-block; color: var(--text-primary); background: transparent; transition: var(--transition);">
+                ← Back to Home
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+    <div class="container">
+        <div class="grid">
+            <div>
+                <div class="logo" style="margin-bottom:12px;">
+                    <span class="icon">⛏️</span>
+                    <span>Tkm</span>chain
+                </div>
+                <p style="color:var(--text-muted);font-size:0.9rem;max-width:300px;">
+                    EVM-compatible blockchain with RandomX PoW, shielded privacy, ML-DSA-87 quantum-resistant wallets, and Rotating Kings governance.
+                </p>
+            </div>
+            <div>
+                <h4>Protocol</h4>
+                <ul>
+                    <li><a href="index.html#protocol">Chain features</a></li>
+                    <li><a href="index.html#privacy">Privacy + PQ</a></li>
+                    <li><a href="index.html#miner">RandomX mining</a></li>
+                    <li><a href="index.html#tvm">EVM + TVM</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Developers</h4>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">RPC Endpoint</a></li>
+                    <li><a href="#">Smart Contracts</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="#">Discord</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Telegram</a></li>
+                    <li><a href="#">Forum</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bottom">
+            <span>&copy; 2026 Tkmchain. All rights reserved.</span>
+            <div class="socials">
+                <a href="#" aria-label="GitHub">🐙</a>
+                <a href="#" aria-label="Twitter">🐦</a>
+                <a href="#" aria-label="Discord">💬</a>
+                <a href="#" aria-label="Telegram">✈️</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+    // ============================================================
+    // Hamburger Menu
+    // ============================================================
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+
+    hamburger.addEventListener('click', () => {
+        nav.classList.toggle('open');
+    });
+
+    // Close on link click (mobile)
+    document.querySelectorAll('.nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            nav.classList.remove('open');
+        });
+    });
+
+    // ============================================================
+    // Connect Wallet (MetaMask) — same as index
+    // ============================================================
+    document.getElementById('connectWalletBtn').addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const address = accounts[0];
+                const btn = document.getElementById('connectWalletBtn');
+                btn.textContent = '✅ ' + address.slice(0, 10) + '…' + address.slice(-6);
+                btn.classList.add('btn');
+                btn.style.background = 'var(--success)';
+                btn.style.color = '#000';
+
+                try {
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0x2313' }]
+                    });
+                } catch (switchError) {
+                    if (switchError.code === 4902) {
+                        try {
+                            await window.ethereum.request({
+                                method: 'wallet_addEthereumChain',
+                                params: [{
+                                    chainId: '0x2313',
+                                    chainName: 'Tkmchain',
+                                    nativeCurrency: { name: 'TKM', symbol: 'TKM', decimals: 18 },
+                                    rpcUrls: ['https://wallet.tkmchain.site/rpc'],
+                                }]
+                            });
+                        } catch (addError) {
+                            console.error('Failed to add chain:', addError);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Connection failed:', error);
+            }
+        } else {
+            alert('Please install MetaMask to connect.');
+        }
+    });
+
+    // ============================================================
+    // Navbar background on scroll
+    // ============================================================
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.background = 'rgba(10, 14, 26, 0.96)';
+        } else {
+            header.style.background = 'rgba(10, 14, 26, 0.92)';
+        }
+    });
+
+    console.log('⛏️ Tkmchain Download page loaded.');
+</script>
+</body>
+</html>

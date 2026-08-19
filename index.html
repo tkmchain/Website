@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TKMChain - RandomX EVM, Shielded Privacy, Quantum-Resistant Wallets, TVM and Public Apps</title>
+  <meta name="description" content="TKMChain is a RandomX proof-of-work, EVM-compatible blockchain with shielded privacy commitments, TKMSHIELD1 envelopes, ML-DSA-87 quantum-resistant transactions, smart accounts, TVM contract visibility, wallet, explorer, phone market, faucet, swap, and miner downloads." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23101518'/%3E%3Cpath d='M18 17h28v8H36v22h-8V25H18z' fill='%23f3b61f'/%3E%3Cpath d='M14 47h36v4H14z' fill='%2327b782'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --ink: #111418;
+      --muted: #5d6875;
+      --line: #dfe4ea;
+      --soft: #f5f7fa;
+      --panel: #ffffff;
+      --charcoal: #12171c;
+      --charcoal-2: #1f272f;
+      --gold: #f0b90b;
+      --green: #138a63;
+      --blue: #3157d5;
+      --red: #b83242;
+      --shadow: 0 18px 55px rgba(17, 20, 24, .12);
+      --radius: 8px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: var(--font); color: var(--ink); background: var(--soft); line-height: 1.58; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .top { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .2px; }
+    .brandmark { width: 42px; height: 42px; border-radius: 8px; background: var(--charcoal); display: grid; place-items: center; color: var(--gold); font-weight: 900; border: 1px solid #2d343b; }
+    .navlinks { display: flex; align-items: center; gap: 20px; color: var(--muted); font-size: 14px; }
+    .navlinks a:hover { color: var(--ink); }
+    .navlinks .button { color: #111; background: var(--gold); padding: 10px 15px; border-radius: 7px; font-weight: 750; }
+    .hero { background: #fff; border-bottom: 1px solid var(--line); }
+    .heroGrid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr); gap: 46px; align-items: center; padding: 78px 0 64px; }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 13px; background: #fbfcfd; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(19,138,99,.12); }
+    h1 { font-size: clamp(42px, 6vw, 74px); line-height: .96; margin: 18px 0; letter-spacing: 0; }
+    h2 { margin: 0; font-size: clamp(28px, 4vw, 44px); letter-spacing: 0; line-height: 1.07; }
+    h3 { margin: 0 0 8px; font-size: 19px; }
+    p { margin: 0; }
+    .lead { color: var(--muted); font-size: 18px; max-width: 720px; margin: 0 0 18px; }
+    .lead strong { color: var(--ink); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; padding: 11px 15px; border-radius: 7px; border: 1px solid var(--line); background: #fff; font-weight: 760; color: var(--ink); }
+    .btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .btn.gold { background: var(--gold); color: #15120a; border-color: var(--gold); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(17,20,24,.08); }
+    .heroPanel { background: var(--charcoal); color: #fff; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid #2d343b; }
+    .heroPanelTop { padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .statusPill { padding: 5px 9px; border-radius: 999px; background: rgba(19,138,99,.16); color: #67e0af; border: 1px solid rgba(103,224,175,.25); font-size: 12px; white-space: nowrap; }
+    .networkDiagram { padding: 20px; display: grid; gap: 12px; background: linear-gradient(180deg, #151b21, #111418); }
+    .diagramNode { border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.045); border-radius: 8px; padding: 16px; }
+    .diagramNode strong { color: var(--gold); display: block; font-size: 18px; margin-bottom: 5px; }
+    .diagramNode span { color: #aab4bf; font-size: 13px; display: block; }
+    .diagramGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .networkFacts { padding: 22px 0; background: var(--charcoal); color: #fff; }
+    .factGrid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+    .metric { border: 1px solid rgba(255,255,255,.08); border-radius: 8px; padding: 14px; background: rgba(255,255,255,.04); min-width: 0; }
+    .metric span { display: block; color: #aab4bf; font-size: 12px; margin-bottom: 5px; }
+    .metric strong { font-size: 18px; word-break: break-word; }
+    section { padding: 72px 0; }
+    .white { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .sectionHead { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+    .sub { color: var(--muted); max-width: 760px; margin: 10px 0 0; }
+    .prose { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .78fr); gap: 28px; align-items: start; }
+    .copyBlock { display: grid; gap: 16px; color: #313942; font-size: 16px; }
+    .copyBlock p { color: #313942; }
+    .copyBlock strong { color: var(--ink); }
+    .quotePanel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 22px; box-shadow: 0 10px 30px rgba(17,20,24,.05); }
+    .quotePanel h3 { color: var(--ink); }
+    .quotePanel p { color: var(--muted); margin-top: 8px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 21px; min-width: 0; }
+    .card p { color: var(--muted); font-size: 14px; }
+    .card .small { color: var(--muted); font-size: 12px; margin-top: 14px; display: block; }
+    .serviceGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .service { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 13px; min-height: 230px; }
+    .service .topline { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .service .icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 8px; background: #eef3ff; color: var(--blue); font-weight: 900; }
+    .service.phone .icon { background: #eaf8f2; color: var(--green); }
+    .service.wallet .icon { background: #fff7dd; color: #9b7300; }
+    .service.privacy .icon { background: #ecf8ff; color: #196a92; }
+    .service.pq .icon { background: #f0f5ff; color: #244fb8; }
+    .service.swap .icon { background: #f5edff; color: #7045b8; }
+    .service.miner .icon { background: #edf7ff; color: #1d6791; }
+    .service.tvm .icon { background: #eefaf7; color: #08775d; }
+    .service.institution .icon { background: #f0f5ff; color: #244fb8; }
+    .service.gov .icon { background: #fff0f0; color: #9f2f3b; }
+    .service a { align-self: end; color: var(--ink); font-weight: 760; }
+    .badge { display: inline-flex; align-items: center; border-radius: 999px; border: 1px solid var(--line); padding: 4px 9px; font-size: 12px; color: var(--muted); background: #fff; }
+    .badge.ok { color: var(--green); border-color: rgba(19,138,99,.28); background: #effaf5; }
+    .downloadSection { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .downloadGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .downloadCard { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: grid; gap: 12px; min-height: 230px; }
+    .downloadCard strong { font-size: 19px; }
+    .downloadCard p { color: var(--muted); font-size: 14px; }
+    .downloadMeta { display: flex; flex-wrap: wrap; gap: 8px; }
+    .downloadMeta span { border: 1px solid var(--line); border-radius: 999px; padding: 4px 9px; font-size: 12px; color: var(--muted); background: #fbfcfd; }
+    .downloadCard .btn { align-self: end; width: 100%; }
+    .steps { display: grid; gap: 12px; margin-top: 18px; }
+    .step { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+    .step b { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--ink); color: #fff; }
+    .step p { color: var(--muted); margin-top: 4px; }
+    .twoCol { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .codeBox { background: #111418; color: #e6edf3; border-radius: 8px; padding: 16px; border: 1px solid #2d343b; overflow: auto; }
+    .codeBox code { white-space: pre; font-size: 13px; }
+    .roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .phase { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+    .phase span { color: var(--green); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    .phase p { color: var(--muted); font-size: 14px; margin-top: 8px; }
+    .footer { background: var(--charcoal); color: #dce3ea; padding: 42px 0; }
+    .footerGrid { display: grid; grid-template-columns: 1.35fr repeat(4, 1fr); gap: 26px; }
+    .footer h4 { margin: 0 0 12px; color: #fff; }
+    .footer a, .footer p, .footer li { color: #aab4bf; font-size: 14px; }
+    .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+    .fine { margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); color: #788594; font-size: 13px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    @media (max-width: 1020px) {
+      .heroGrid, .prose, .twoCol { grid-template-columns: 1fr; }
+      .serviceGrid, .downloadGrid, .roadmap { grid-template-columns: repeat(2, 1fr); }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .factGrid { grid-template-columns: repeat(2, 1fr); }
+      .navlinks { display: none; }
+      .heroGrid { padding-top: 44px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, 1180px); }
+      .cards, .serviceGrid, .downloadGrid, .roadmap, .factGrid, .diagramGrid, .footerGrid { grid-template-columns: 1fr; }
+      .actions .btn { width: 100%; }
+      .sectionHead { display: block; }
+      h1 { font-size: 42px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="TKMChain home"><span class="brandmark">TK</span><span>TKMChain</span></a>
+      <nav class="navlinks" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#apps">Apps</a>
+        <a href="#privacy">Privacy</a>
+        <a href="smart-accounts.html">Smart Accounts</a>
+        <a href="#institutions">Institutions</a>
+        <a href="#phone">Phone</a>
+        <a href="#protocol">Protocol</a>
+        <a href="#governance">Governance</a>
+        <a href="#miner">Miner</a>
+        <a class="button" href="https://wallet.tkmchain.site">Open Wallet</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap heroGrid">
+        <div>
+          <span class="eyebrow"><span class="dot"></span>RandomX proof of work, shielded privacy, PQ accounts, and public infrastructure</span>
+          <h1>TKMChain is building practical blockchain services, not only a coin.</h1>
+          <p class="lead"><strong>TKMChain</strong> is an EVM-compatible RandomX proof-of-work network designed around real usage: shielded privacy, quantum-resistant account flows, mining, wallets, contract deployment, public audit trails, phone-number identity, encrypted messaging, call signaling, swaps, and explorer visibility.</p>
+          <p class="lead">The project combines familiar Ethereum tooling with chain-specific systems such as Rotating Kings, signed checkpoints, <code>TKMSHIELD1</code> shielded transactions, ML-DSA-87 post-quantum signing, TVM contract inspection, institutional proof records, governance disclosures, and a phone marketplace where ownership is recorded through network transactions.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://wallet.tkmchain.site">Open Web Wallet</a>
+            <a class="btn" href="#privacy">View Privacy + PQ</a>
+            <a class="btn gold" href="https://phone.tkmchain.site">Open Phone Market</a>
+            <a class="btn" href="https://block.tkmchain.site">View Explorer</a>
+            <a class="btn" href="https://swap.tkmchain.site">Open Swap</a>
+            <a class="btn" href="#miner">Download Miner</a>
+          </div>
+        </div>
+        <div class="heroPanel" aria-label="TKMChain architecture overview">
+          <div class="heroPanelTop"><strong>Network structure</strong><span class="statusPill">Mainnet</span></div>
+          <div class="networkDiagram">
+            <div class="diagramGrid">
+              <div class="diagramNode"><strong>RandomX mining</strong><span>CPU-friendly proof of work, emergency difficulty protections, miner rewards, and safer mining startup checks.</span></div>
+              <div class="diagramNode"><strong>EVM</strong><span>Ethereum-compatible accounts, transactions, Web3 tooling, token contracts, and wallet support.</span></div>
+            </div>
+            <div class="diagramGrid">
+              <div class="diagramNode"><strong>Shielded privacy</strong><span>Encrypted commitments and <code>TKMSHIELD1</code> envelopes are verified before EVM execution.</span></div>
+              <div class="diagramNode"><strong>PQ transactions</strong><span><code>PQTkmTxType</code> uses ML-DSA-87 signatures and version 4 post-quantum keyfiles.</span></div>
+            </div>
+            <div class="diagramGrid">
+              <div class="diagramNode"><strong>TVM</strong><span>Native TVM contract artifacts can be inspected from the explorer after deployment.</span></div>
+              <div class="diagramNode"><strong>Phone layer</strong><span>Bucket issuance, SIM files, registered numbers, encrypted messages, and call signaling.</span></div>
+            </div>
+            <div class="diagramGrid">
+              <div class="diagramNode"><strong>Institutions</strong><span>Verified organizations can publish auditable hashes for credentials, documents, invoices, grants, and disclosures.</span></div>
+              <div class="diagramNode"><strong>Governance ledger</strong><span>Main King signed public records preserve decisions, checkpoints, commitments, and updates.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="networkFacts" aria-label="Network facts">
+      <div class="wrap factGrid">
+        <div class="metric"><span>Network</span><strong>TKMChain Mainnet</strong></div>
+        <div class="metric"><span>Chain ID</span><strong>8979</strong></div>
+        <div class="metric"><span>Currency</span><strong>TKM</strong></div>
+        <div class="metric"><span>Consensus</span><strong>RandomX PoW</strong></div>
+        <div class="metric"><span>Contracts</span><strong>EVM + TVM</strong></div>
+        <div class="metric"><span>Privacy + PQ</span><strong>TKMSHIELD1 + ML-DSA-87</strong></div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap prose">
+        <div class="copyBlock">
+          <div class="sectionHead"><div><h2>What TKMChain is about</h2><p class="sub">A blockchain project should be more than a chain that moves balances. TKMChain is being built as a complete public network with tools people can actually open, test, mine, inspect, and use.</p></div></div>
+          <p>At the base, TKMChain is a proof-of-work blockchain using RandomX. The goal is to make mining accessible to normal machines while keeping the network anchored in measurable work. The chain remains compatible with Ethereum-style accounts and RPC flows, so users can send TKM, developers can deploy contracts, and wallets can connect using familiar Web3 methods.</p>
+          <p>The project also adds native ideas that are specific to TKMChain. Rotating Kings create a visible reward relationship between the protocol and active community participants. Signed checkpoints strengthen peer security. The governance disclosure ledger gives future users a way to audit public promises, roadmap statements, checkpoint decisions, and fund commitments without relying only on posts that can be edited or removed.</p>
+          <p>Privacy and quantum resistance are implemented as protocol features, not just website promises. Shielded transactions use encrypted commitments, nullifiers, a <code>TKMSHIELD1</code> data envelope, and Groth16 proof verification. Post-quantum accounts use ML-DSA-87 keys, version 4 keyfiles, and the <code>PQTkmTxType</code> typed transaction path.</p>
+          <p>The institutional suite gives schools, banks, agencies, enterprises, cooperatives, and public bodies a way to publish verifiable proofs for credentials, documents, invoices, procurement, grants, and audit disclosures without exposing private files on-chain.</p>
+          <p>TKMChain is also experimenting with phone-number identity. Buckets are created by MainKing through the daemon, operators buy buckets, users buy numbers, and registered SIM slots can send messages or start calls. This makes the phone system part of the network infrastructure instead of a separate website database pretending to be ownership.</p>
+        </div>
+        <aside class="quotePanel">
+          <h3>Project direction</h3>
+          <p>TKMChain is focused on combining mining, smart contracts, communications, governance records, and public tooling into one ecosystem. The website links to the actual services instead of presenting only a roadmap.</p>
+          <p>Explorer, wallet, phone market, swap, faucet, miner downloads, shielded privacy, PQ account migration, institutional records, TVM inspection, token visibility, and governance tools are treated as first-class parts of the network.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="apps" class="white">
+      <div class="wrap">
+        <div class="sectionHead">
+          <div><h2>Public applications</h2><p class="sub">The ecosystem is split into focused tools so each surface has a clear job. The wallet handles accounts, PQ keyfiles, and transactions, the explorer handles auditability, the phone market handles numbers, the institutions suite handles public proof records, and the swap interface handles the ANTD/TKM workflow.</p></div>
+        </div>
+        <div class="serviceGrid">
+          <article class="service"><div class="topline"><span class="icon">EX</span><span class="badge ok">Live</span></div><h3>Block Explorer</h3><p>Search blocks, transactions, addresses, tokens, Rotating Kings, checkpoints, TVM contracts, phone buckets, registered numbers, and network activity.</p><a href="https://block.tkmchain.site">Open explorer</a></article>
+          <article class="service wallet"><div class="topline"><span class="icon">WA</span><span class="badge ok">Live</span></div><h3>Web Wallet</h3><p>Create and manage TKM wallets, import keystores, handle PQ account metadata, send transactions, connect dapps, and use the public TKMChain network from a browser.</p><a href="https://wallet.tkmchain.site">Open wallet</a></article>
+          <article class="service privacy"><div class="topline"><span class="icon">PR</span><span class="badge ok">Implemented</span></div><h3>Shielded Privacy</h3><p>Encrypted commitments, nullifier tracking, <code>TKMSHIELD1</code> transaction envelopes, padded outputs, and Groth16 spend proof verification are in the chain path.</p><a href="#privacy">View privacy</a></article>
+          <article class="service pq"><div class="topline"><span class="icon">PQ</span><span class="badge ok">Implemented</span></div><h3>Quantum-Resistant Wallets</h3><p>ML-DSA-87 accounts, version 4 PQ keyfiles, migration helpers, and <code>PQTkmTxType</code> transaction signing are exposed through wallet/RPC support.</p><a href="#privacy">View PQ flow</a></article>
+          <article class="service"><div class="topline"><span class="icon">SA</span><span class="badge ok">Implemented</span></div><h3>Smart Accounts</h3><p>Use multisignature owners, spending limits, restricted session keys, delayed guardian recovery, deterministic accounts, and sponsored operations without a hardfork.</p><a href="smart-accounts.html">Explore smart accounts</a></article>
+          <article class="service phone"><div class="topline"><span class="icon">PH</span><span class="badge ok">Live</span></div><h3>Phone Market</h3><p>Buy buckets, become an operator, open numbers, sell numbers, download SIM files, register device keys, send messages, and initiate calls.</p><a href="https://phone.tkmchain.site">Open phone market</a></article>
+          <article class="service swap"><div class="topline"><span class="icon">SW</span><span class="badge ok">Live</span></div><h3>ANTD / TKM Swap</h3><p>Use the one-to-one swap workflow between ANTD, a Monero-fork asset, and TKM on the TKMChain side of the system.</p><a href="https://swap.tkmchain.site">Open swap</a></article>
+          <article class="service miner"><div class="topline"><span class="icon">RX</span><span class="badge ok">Ready</span></div><h3>Miner Downloads</h3><p>Download release miner builds for Windows AMD64, Linux AMD64, Linux ARM64, and Linux ARMv7 systems.</p><a href="#miner">Download miner</a></article>
+          <article class="service tvm"><div class="topline"><span class="icon">TV</span><span class="badge ok">Explorer</span></div><h3>TVM Contracts</h3><p>Inspect deployed TVM artifacts and verify contract code through explorer support designed for the chain's native TVM work.</p><a href="https://block.tkmchain.site/tvm">View TVM</a></article>
+          <article class="service institution"><div class="topline"><span class="icon">IN</span><span class="badge ok">Deployed</span></div><h3>Institutions</h3><p>Register verified organizations and publish credential, document, invoice, procurement, grant, escrow, and disclosure proofs.</p><a href="#institutions">View institutions</a></article>
+          <article class="service gov"><div class="topline"><span class="icon">GV</span><span class="badge ok">Signed</span></div><h3>Governance Ledger</h3><p>Read signed disclosure records for checkpoint decisions, roadmap updates, Rotating King notes, fund commitments, and security notices.</p><a href="#governance">View governance</a></article>
+          <article class="service"><div class="topline"><span class="icon">FC</span><span class="badge ok">Live</span></div><h3>Faucet</h3><p>Request test funds for getting started with wallets, basic transactions, contract testing, and onboarding new users.</p><a href="https://faucet.tkmchain.site">Open faucet</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="protocol">
+      <div class="wrap">
+        <div class="sectionHead"><div><h2>Protocol features</h2><p class="sub">TKMChain keeps Ethereum compatibility where it helps, and adds project-specific rules where the network needs its own identity, security, and economics.</p></div></div>
+        <div class="cards">
+          <article class="card"><h3>RandomX proof of work</h3><p>Mining is based on RandomX, with release miners provided for common desktop, server, and ARM devices.</p><span class="small">Consensus layer</span></article>
+          <article class="card"><h3>Rotating Kings</h3><p>Rotating King rewards create a public reward path beyond miners, tying network activity to community participation.</p><span class="small">Reward model</span></article>
+          <article class="card"><h3>Signed checkpoints</h3><p>Peers can compare signed checkpoint hashes and disconnect from peers that report mismatched network history.</p><span class="small">Peer security</span></article>
+          <article class="card"><h3>Difficulty protections</h3><p>Difficulty logic is designed to avoid unsafe fallback behavior and prevent mining from restarting blindly after local truncation.</p><span class="small">Mining safety</span></article>
+          <article class="card"><h3>EVM compatibility</h3><p>Accounts, balances, transactions, gas, token contracts, Web3 wallets, and Ethereum-style tooling remain familiar.</p><span class="small">Developer access</span></article>
+          <article class="card"><h3>Shielded privacy</h3><p>Encrypted commitments and <code>TKMSHIELD1</code> envelopes are validated with nullifiers, padded outputs, binding hashes, and Groth16 spend proofs.</p><span class="small">Private transaction layer</span></article>
+          <article class="card"><h3>Quantum-resistant transactions</h3><p>Post-quantum accounts use ML-DSA-87 signatures through <code>PQTkmTxType</code>, while keyfiles stay compatible with the wallet keystore model.</p><span class="small">Post-quantum account layer</span></article>
+          <article class="card"><h3>Smart accounts</h3><p>Contract-enforced owners, recovery, spending limits, application sessions, and sponsorship add safer wallet behavior without changing consensus.</p><span class="small"><a href="smart-accounts.html">Non-consensus account layer →</a></span></article>
+          <article class="card"><h3>TVM visibility</h3><p>TVM contract artifacts can be read and displayed in the explorer, making deployed native code easier to verify.</p><span class="small">Contract transparency</span></article>
+          <article class="card"><h3>Institutional proofs</h3><p>Verified institutions can publish hashes for documents, credentials, invoices, procurement, grants, escrow, and disclosures.</p><span class="small">Public verification</span></article>
+          <article class="card"><h3>Supply accounting</h3><p>Supply commands expose genesis supply, issued rewards, miner rewards, Rotating King rewards, and MainKing rewards.</p><span class="small">Economic visibility</span></article>
+          <article class="card"><h3>Phone transactions</h3><p>Bucket creation, bucket purchases, number sales, SIM registration, and phone ownership are tied to network state.</p><span class="small">Identity layer</span></article>
+          <article class="card"><h3>Governance records</h3><p>Signed disclosures preserve public explanations for later audit instead of relying only on website text or chat history.</p><span class="small">Long-term memory</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy" class="white">
+      <div class="wrap prose">
+        <div class="copyBlock">
+          <span class="eyebrow"><span class="dot"></span>Privacy and quantum resistance</span>
+          <h2>Shielded transaction rules and post-quantum wallet support are in the protocol.</h2>
+          <p>TKMChain mainnet uses <strong>2026-08-06 10:00:00 UTC</strong> as the activation timestamp for both privacy commitments and quantum-resistant transaction validation. From that timestamp, user transactions must use the shielded path and normal user activity must use the post-quantum transaction type.</p>
+          <p>The shielded transaction format is a real consensus envelope. Transaction data begins with <code>TKMSHIELD1</code>, carries spends, exactly four padded output slots, encrypted note payloads, nonces, a balance commitment, and a binding hash. Each spend must include a valid <code>TKMG16V1</code> Groth16 proof checked against the configured <code>TKMG16VK1</code> verifying key.</p>
+          <p>The post-quantum wallet path uses ML-DSA-87 keys, version 4 encrypted keyfiles, local RPC helpers for PQ account creation and migration, and <code>PQTkmTxType</code> signed transactions. Legacy ECDSA keyfiles remain readable for history and pre-fork migration records, but post-fork user transactions are PQ-only.</p>
+        </div>
+        <aside class="quotePanel">
+          <h3>Client requirements</h3>
+          <div class="steps">
+            <div class="step"><b>1</b><div><strong>Build the envelope</strong><p>Wallet/prover clients construct <code>TKMSHIELD1</code> data with real spends, nullifiers, commitments, encrypted outputs, and a binding hash.</p></div></div>
+            <div class="step"><b>2</b><div><strong>Generate the proof</strong><p>Each spend supplies a <code>TKMG16V1</code> Groth16 proof that matches the chain ID, block number, transaction hash, spend index, nullifier, anchor, value, and output commitment root.</p></div></div>
+            <div class="step"><b>3</b><div><strong>Submit as PQ</strong><p>The wallet signs user transactions as <code>PQTkmTxType</code> with ML-DSA-87 public key and signature fields.</p></div></div>
+          </div>
+          <div class="codeBox" style="margin-top:16px;"><code>Privacy envelope: TKMSHIELD1
+Proof encoding:   TKMG16V1
+Verifying key:    TKMG16VK1
+PQ tx type:       0x06 / PQTkmTxType
+PQ algorithm:     ML-DSA-87
+Activation UTC:   2026-08-06 10:00:00</code></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="phone" class="white">
+      <div class="wrap twoCol">
+        <div>
+          <span class="eyebrow"><span class="dot"></span>TKM Phone</span>
+          <h2 style="margin-top:14px;">Phone numbers as network-owned identity.</h2>
+          <div class="copyBlock" style="margin-top:16px;">
+            <p>The TKM Phone system is designed so numbers are not just rows in a website database. MainKing creates number buckets from the daemon. Operators buy buckets, open them, and sell individual numbers. Users who buy numbers receive ownership that can be exported into a SIM file and used by phone and chat applications.</p>
+            <p>A registered number is expected to have a device key and owner signature. That protects the system from fake numbers, unregistered senders, and market listings that continue after a number has already been selected for use. Messages and call signaling are built around registered numbers, not anonymous website accounts.</p>
+          </div>
+          <div class="actions"><a class="btn primary" href="https://phone.tkmchain.site">Buy or manage numbers</a><a class="btn" href="https://block.tkmchain.site/phone">Explore phone state</a></div>
+        </div>
+        <div class="quotePanel">
+          <h3>Phone marketplace flow</h3>
+          <div class="steps">
+            <div class="step"><b>1</b><div><strong>MainKing creates buckets</strong><p>Bucket generation is done from gtkm, keeping MainKing approval out of hosted websites.</p></div></div>
+            <div class="step"><b>2</b><div><strong>Operators buy buckets</strong><p>Operators pay for buckets, receive numbers, and can sell numbers to end users.</p></div></div>
+            <div class="step"><b>3</b><div><strong>Users register SIM slots</strong><p>Once a user activates a number, it is permanently removed from the market and tied to its owner/device flow.</p></div></div>
+            <div class="step"><b>4</b><div><strong>Messages and calls use registered numbers</strong><p>Unregistered numbers cannot send messages or initiate valid phone actions.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tvm">
+      <div class="wrap prose">
+        <div class="copyBlock">
+          <span class="eyebrow"><span class="dot"></span>TVM and contracts</span>
+          <h2>Two contract paths: EVM familiarity and TVM visibility.</h2>
+          <p>TKMChain keeps the EVM path for compatibility with wallets, token contracts, and Web3 libraries. That matters because developers should not need to learn a completely new account model just to test or deploy simple applications.</p>
+          <p>TVM support gives the project another contract surface for native work. The explorer is being updated so deployed TVM artifacts can be inspected after mining. That same public-verification approach supports institutional records, token contracts, and native TVM work without hiding important state inside private services.</p>
+          <div class="actions"><a class="btn primary" href="https://block.tkmchain.site/tvm">Inspect TVM contracts</a><a class="btn" href="https://block.tkmchain.site/tokens">View tokens</a></div>
+        </div>
+        <aside class="quotePanel">
+          <h3>Developer focus</h3>
+          <p>Developers can use Ethereum-style RPC where compatibility still applies, while TKMChain-specific RPC surfaces expose TVM, shielded commitments, PQ account metadata, phone state, governance records, and supply accounting.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="institutions" class="white">
+      <div class="wrap prose">
+        <div class="copyBlock">
+          <span class="eyebrow"><span class="dot"></span>Institutions and public records</span>
+          <h2>Auditable records for schools, agencies, banks, enterprises, and public bodies.</h2>
+          <p>TKMChain includes a deployed institutional suite for organizations that need verifiable records without placing private documents directly on-chain. The chain stores hashes, status fields, admin addresses, metadata references, timestamps, and transaction provenance, while the original private files can remain with the institution or its storage provider.</p>
+          <p>This is useful for diploma and certificate verification, government permits, business approvals, invoices, procurement awards, grant and scholarship records, escrow-backed service delivery, audit reports, public corrections, and institutional accountability.</p>
+          <p>The deployed suite is application-layer infrastructure. It is exposed through the <code>tkminstitution</code> RPC namespace and standard EVM transaction flow, so wallets, explorer pages, and institution portals can prepare records without requiring a hardfork or exposing institution admin keys on a hosted website.</p>
+          <div class="actions"><a class="btn primary" href="https://block.tkmchain.site/address/0x43aeb055883863cfe40804e386bec801b4ca63ec">View contract</a><a class="btn" href="https://block.tkmchain.site/tvm">Inspect TVM</a></div>
+        </div>
+        <aside class="quotePanel">
+          <h3>Institution suite</h3>
+          <div class="steps">
+            <div class="step"><b>1</b><div><strong>Register institution</strong><p>Owner-approved institutions get an admin address and stable institution ID.</p></div></div>
+            <div class="step"><b>2</b><div><strong>Publish proofs</strong><p>Credentials, documents, invoices, procurement, grants, and disclosures are recorded as hashes and metadata references.</p></div></div>
+            <div class="step"><b>3</b><div><strong>Verify later</strong><p>Explorers and apps can compare a document or credential hash against the on-chain record and show current status.</p></div></div>
+          </div>
+          <div class="codeBox" style="margin-top:16px;"><code>Contract: 0x43aeb055883863cfe40804e386bec801b4ca63ec
+RPC:      tkminstitution_status
+Network:  TKMChain Mainnet
+Chain ID: 8979</code></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="governance">
+      <div class="wrap prose">
+        <div class="copyBlock">
+          <span class="eyebrow"><span class="dot"></span>Governance records</span>
+          <h2>Public decisions should be auditable years later.</h2>
+          <p>Blockchains preserve balances and transaction history, but they do not automatically preserve the explanation behind project decisions. TKMChain adds a signed governance disclosure ledger so important statements can be published with hashes, signatures, timestamps, previous-hash links, and optional transaction anchors.</p>
+          <p>This is useful for Rotating King selections, checkpoint decisions, roadmap statements, hardfork notices, security announcements, and development-fund commitments. The purpose is not to replace consensus; it is to make public commitments harder to silently rewrite.</p>
+          <p>MainKing signed disclosures give the community a permanent reference point. A website can be redesigned and forum posts can change, but a signed hash gives users something stable to compare against the original document.</p>
+        </div>
+        <aside class="quotePanel">
+          <h3>What gets recorded</h3>
+          <div class="steps">
+            <div class="step"><b>1</b><div><strong>Decision text</strong><p>The public statement is written in plain language and stored where users can read it.</p></div></div>
+            <div class="step"><b>2</b><div><strong>Disclosure hash</strong><p>The statement hash is signed by the configured MainKing identity.</p></div></div>
+            <div class="step"><b>3</b><div><strong>Update chain</strong><p>Later updates can point back to earlier hashes so older promises remain visible.</p></div></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="miner" class="downloadSection">
+      <div class="wrap">
+        <div class="sectionHead">
+          <div><h2>Download TKM RandomX miner</h2><p class="sub">Official miner builds are hosted directly from TKMChain. Choose the release for your operating system and CPU architecture, then connect it to your pool or local node.</p></div>
+        </div>
+        <div class="downloadGrid">
+          <article class="downloadCard"><strong>XMRig for Ubuntu AMD64</strong><p>TKMChain-compatible XMRig build for 64-bit Ubuntu systems. Download the archive, extract it, and configure it for your mining pool.</p><div class="downloadMeta"><span>.tar.gz</span><span>x86-64</span><span>Ubuntu</span><span>XMRig</span></div><a class="btn primary" href="https://tkmchain.site/download/xmrig-ubuntu-amd64.tar.gz" download>Download XMRig Ubuntu</a></article>
+          <article class="downloadCard"><strong>Windows AMD64</strong><p>For 64-bit Windows desktops and servers. Download the archive, extract it, and configure it for your mining endpoint.</p><div class="downloadMeta"><span>.zip</span><span>x86-64</span><span>Windows</span></div><a class="btn primary" href="https://tkmchain.site/download/miner/windows-amd64.zip">Download Windows</a></article>
+          <article class="downloadCard"><strong>Linux AMD64</strong><p>For 64-bit Intel and AMD Linux systems, including common servers and desktop mining setups.</p><div class="downloadMeta"><span>.tar.gz</span><span>x86-64</span><span>Linux</span></div><a class="btn primary" href="https://tkmchain.site/download/miner/linux-amd64.tar.gz">Download Linux AMD64</a></article>
+          <article class="downloadCard"><strong>Linux ARM64 / ARMv8</strong><p>For 64-bit ARM servers, boards, and ARMv8 devices that can run the RandomX miner.</p><div class="downloadMeta"><span>.tar.gz</span><span>aarch64</span><span>ARMv8</span></div><a class="btn primary" href="https://tkmchain.site/download/miner/linux-arm64.tar.gz">Download ARM64</a></article>
+          <article class="downloadCard"><strong>Linux ARMv7</strong><p>For 32-bit ARM hard-float Linux devices where a smaller mining build is required.</p><div class="downloadMeta"><span>.tar.gz</span><span>armhf</span><span>ARMv7</span></div><a class="btn primary" href="https://tkmchain.site/download/miner/linux-armv7.tar.gz">Download ARMv7</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="wrap">
+        <div class="sectionHead"><div><h2>Roadmap direction</h2><p class="sub">The current roadmap is focused on making every major protocol addition visible through public tools, documented flows, and user-facing applications.</p></div></div>
+        <div class="roadmap">
+          <article class="phase"><span>Current</span><h3>Public network tools</h3><p>Explorer, wallet, faucet, swap, phone market, miner downloads, shielded privacy, PQ transactions, institutional records, supply accounting, TVM inspection, and governance records.</p></article>
+          <article class="phase"><span>Next</span><h3>Wallet privacy clients</h3><p>More complete note creation, note scanning, proof-generation UX, encrypted note backup, and safer shielded transaction submission flows.</p></article>
+          <article class="phase"><span>Next</span><h3>Explorer and contract visibility</h3><p>Better token discovery, institution pages, TVM contract pages, PQ account labels, shielded status views, and clearer explorer pages for developers and users.</p></article>
+          <article class="phase"><span>Ongoing</span><h3>Governance memory</h3><p>More signed disclosures, clearer public records, and documents that preserve the reasoning behind checkpoints and project changes.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="developers" class="white">
+      <div class="wrap twoCol">
+        <div>
+          <h2>Build with wallet, shielded, and PQ flows.</h2>
+          <p class="sub">TKMChain supports Ethereum-style account compatibility where useful, plus TKM-specific RPC and typed-transaction paths for shielded commitments, post-quantum wallets, TVM, institutions, phone state, governance, and supply accounting.</p>
+          <div class="actions"><button class="btn primary" id="addNetwork">Add TKMChain to Wallet</button><a class="btn" href="https://block.tkmchain.site/api">Explorer API</a></div>
+        </div>
+        <div class="codeBox"><code>Network name: TKMChain Mainnet
+RPC URL:      https://wallet.tkmchain.site/rpc
+Chain ID:     8979
+Currency:     TKM
+Explorer:     https://block.tkmchain.site
+Privacy:      TKMSHIELD1 commitments
+PQ signing:   ML-DSA-87 / type 0x06</code></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footerGrid">
+        <div><div class="brand" style="color:#fff;margin-bottom:12px;"><span class="brandmark">TK</span><span>TKMChain</span></div><p>RandomX proof-of-work, Rotating Kings rewards, EVM and TVM contracts, shielded privacy, ML-DSA-87 quantum-resistant wallets, smart accounts, institutional proof records, signed governance records, phone-number identity, encrypted messaging, calls, wallet, explorer, faucet, miner downloads, and swap tools.</p></div>
+        <div><h4>Apps</h4><ul><li><a href="https://block.tkmchain.site">Explorer</a></li><li><a href="https://wallet.tkmchain.site">Wallet</a></li><li><a href="https://phone.tkmchain.site">Phone</a></li><li><a href="https://swap.tkmchain.site">Swap</a></li><li><a href="https://faucet.tkmchain.site">Faucet</a></li><li><a href="smart-accounts.html">Smart Accounts</a></li><li><a href="#institutions">Institutions</a></li></ul></div>
+        <div><h4>Downloads</h4><ul><li><a href="#miner">Miner downloads</a></li><li><a href="https://tkmchain.site/download/xmrig-ubuntu-amd64.tar.gz" download>XMRig Ubuntu AMD64</a></li><li><a href="https://tkmchain.site/download/miner/windows-amd64.zip">Windows AMD64</a></li><li><a href="https://tkmchain.site/download/miner/linux-amd64.tar.gz">Linux AMD64</a></li><li><a href="https://tkmchain.site/download/miner/linux-arm64.tar.gz">Linux ARM64</a></li></ul></div>
+        <div><h4>Protocol</h4><ul><li><a href="#protocol">Chain features</a></li><li><a href="#privacy">Privacy + PQ</a></li><li><a href="smart-accounts.html">Smart accounts</a></li><li><a href="#tvm">TVM contracts</a></li><li><a href="#institutions">Institutions</a></li><li><a href="#governance">Governance ledger</a></li><li><a href="#phone">Phone numbers</a></li></ul></div>
+        <div><h4>Network</h4><ul><li>Chain ID 8979</li><li>Symbol TKM</li><li>RandomX PoW</li><li>TKMSHIELD1 privacy</li><li>ML-DSA-87 PQ</li><li>EVM + TVM</li></ul></div>
+      </div>
+      <div class="fine"><span>Copyright 2026 TKMChain.</span><span>Public website for the TKMChain ecosystem.</span></div>
+    </div>
+  </footer>
+
+  <script>
+    const RPC_URL = 'https://wallet.tkmchain.site/rpc';
+
+    async function addNetwork() {
+      if (!window.ethereum) {
+        alert('Install a Web3 wallet such as MetaMask, then try again.');
+        return;
+      }
+      const chain = {
+        chainId: '0x2313',
+        chainName: 'TKMChain Mainnet',
+        nativeCurrency: { name: 'TKM', symbol: 'TKM', decimals: 18 },
+        rpcUrls: [RPC_URL],
+        blockExplorerUrls: ['https://block.tkmchain.site']
+      };
+      try {
+        await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: chain.chainId }] });
+      } catch (error) {
+        if (error && error.code === 4902) {
+          await window.ethereum.request({ method: 'wallet_addEthereumChain', params: [chain] });
+        } else {
+          throw error;
+        }
+      }
+    }
+
+    const addButton = document.getElementById('addNetwork');
+    if (addButton) addButton.addEventListener('click', () => addNetwork().catch((error) => alert(error.message || String(error))));
+  </script>
+</body>
+</html>
