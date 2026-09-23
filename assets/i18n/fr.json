@@ -1,0 +1,20 @@
+{
+  "locale": "fr",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Confidentialité",
+    "nav.network": "Réseau",
+    "nav.communications": "Communications",
+    "nav.accounts": "Comptes",
+    "nav.downloads": "Téléchargements",
+    "nav.explorer": "Explorateur",
+    "nav.wallet": "Ouvrir le portefeuille",
+    "nav.developers": "Développeurs",
+    "nav.governance": "Gouvernance",
+    "language.label": "Langue",
+    "footer.use": "Utiliser",
+    "footer.learn": "En savoir plus",
+    "footer.tagline": "Monnaie programmable privée, infrastructure ouverte et communications chiffrées."
+  },
+  "content": {}
+}

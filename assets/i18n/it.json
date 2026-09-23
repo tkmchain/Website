@@ -1,0 +1,20 @@
+{
+  "locale": "it",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Privacy",
+    "nav.network": "Rete",
+    "nav.communications": "Comunicazioni",
+    "nav.accounts": "Account",
+    "nav.downloads": "Download",
+    "nav.explorer": "Esplora",
+    "nav.wallet": "Apri il wallet",
+    "nav.developers": "Sviluppatori",
+    "nav.governance": "Governance",
+    "language.label": "Lingua",
+    "footer.use": "Usa",
+    "footer.learn": "Scopri di più",
+    "footer.tagline": "Denaro programmabile privato, infrastruttura aperta e comunicazioni cifrate."
+  },
+  "content": {}
+}

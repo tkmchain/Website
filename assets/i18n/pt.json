@@ -1,0 +1,20 @@
+{
+  "locale": "pt",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Privacidade",
+    "nav.network": "Rede",
+    "nav.communications": "Comunicações",
+    "nav.accounts": "Contas",
+    "nav.downloads": "Downloads",
+    "nav.explorer": "Explorador",
+    "nav.wallet": "Abrir carteira",
+    "nav.developers": "Desenvolvedores",
+    "nav.governance": "Governança",
+    "language.label": "Idioma",
+    "footer.use": "Usar",
+    "footer.learn": "Saiba mais",
+    "footer.tagline": "Dinheiro programável privado, infraestrutura aberta e comunicações criptografadas."
+  },
+  "content": {}
+}

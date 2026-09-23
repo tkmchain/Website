@@ -1,0 +1,20 @@
+{
+  "locale": "vi",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Quyền riêng tư",
+    "nav.network": "Mạng",
+    "nav.communications": "Liên lạc",
+    "nav.accounts": "Tài khoản",
+    "nav.downloads": "Tải xuống",
+    "nav.explorer": "Trình khám phá",
+    "nav.wallet": "Mở ví",
+    "nav.developers": "Nhà phát triển",
+    "nav.governance": "Quản trị",
+    "language.label": "Ngôn ngữ",
+    "footer.use": "Sử dụng",
+    "footer.learn": "Tìm hiểu thêm",
+    "footer.tagline": "Tiền lập trình riêng tư, hạ tầng mở và liên lạc được mã hóa."
+  },
+  "content": {}
+}

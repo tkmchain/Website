@@ -1,0 +1,20 @@
+{
+  "locale": "ar",
+  "direction": "rtl",
+  "ui": {
+    "nav.privacy": "الخصوصية",
+    "nav.network": "الشبكة",
+    "nav.communications": "الاتصالات",
+    "nav.accounts": "الحسابات",
+    "nav.downloads": "التنزيلات",
+    "nav.explorer": "المستكشف",
+    "nav.wallet": "فتح المحفظة",
+    "nav.developers": "المطورون",
+    "nav.governance": "الحوكمة",
+    "language.label": "اللغة",
+    "footer.use": "استخدام",
+    "footer.learn": "تعرّف أكثر",
+    "footer.tagline": "أموال خاصة قابلة للبرمجة، وبنية مفتوحة، واتصالات مشفرة."
+  },
+  "content": {}
+}

@@ -25,7 +25,7 @@ The generated site is written to `dist/`. It is intentionally ignored by Git bec
 
 ## Languages
 
-The header includes automatic language detection and twenty selectable languages. The selector uses Google’s client-side translation for the Markdown-rendered page and keeps a local translation for the navigation and footer labels. The canonical content remains English Markdown; adding `content/<locale>/` pages is supported when a reviewed human translation is ready.
+The header includes automatic language detection and twenty selectable languages. Translation runs locally from the versioned JSON catalogs in `assets/i18n/`, with no third-party translation script or visitor content sent to an external service. Catalogs contain UI labels and stable keys for Markdown blocks; untranslated blocks fall back to the English source so every page remains complete. English Markdown in `content/en/` remains canonical, while reviewed translations can be added incrementally to any catalog.
 
 ## GitHub Pages
 

@@ -1,0 +1,20 @@
+{
+  "locale": "pl",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Prywatność",
+    "nav.network": "Sieć",
+    "nav.communications": "Komunikacja",
+    "nav.accounts": "Konta",
+    "nav.downloads": "Pobieranie",
+    "nav.explorer": "Eksplorator",
+    "nav.wallet": "Otwórz portfel",
+    "nav.developers": "Deweloperzy",
+    "nav.governance": "Zarządzanie",
+    "language.label": "Język",
+    "footer.use": "Użyj",
+    "footer.learn": "Dowiedz się więcej",
+    "footer.tagline": "Prywatne programowalne pieniądze, otwarta infrastruktura i szyfrowana komunikacja."
+  },
+  "content": {}
+}

@@ -1,0 +1,20 @@
+{
+  "locale": "nl",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Privacy",
+    "nav.network": "Netwerk",
+    "nav.communications": "Communicatie",
+    "nav.accounts": "Accounts",
+    "nav.downloads": "Downloads",
+    "nav.explorer": "Explorer",
+    "nav.wallet": "Wallet openen",
+    "nav.developers": "Ontwikkelaars",
+    "nav.governance": "Bestuur",
+    "language.label": "Taal",
+    "footer.use": "Gebruiken",
+    "footer.learn": "Meer informatie",
+    "footer.tagline": "Privé programmeerbaar geld, open infrastructuur en versleutelde communicatie."
+  },
+  "content": {}
+}

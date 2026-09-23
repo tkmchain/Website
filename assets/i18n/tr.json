@@ -1,0 +1,20 @@
+{
+  "locale": "tr",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Gizlilik",
+    "nav.network": "Ağ",
+    "nav.communications": "İletişim",
+    "nav.accounts": "Hesaplar",
+    "nav.downloads": "İndirmeler",
+    "nav.explorer": "Gezgin",
+    "nav.wallet": "Cüzdanı aç",
+    "nav.developers": "Geliştiriciler",
+    "nav.governance": "Yönetişim",
+    "language.label": "Dil",
+    "footer.use": "Kullan",
+    "footer.learn": "Daha fazla bilgi",
+    "footer.tagline": "Özel programlanabilir para, açık altyapı ve şifreli iletişim."
+  },
+  "content": {}
+}

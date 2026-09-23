@@ -1,0 +1,20 @@
+{
+  "locale": "th",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "ความเป็นส่วนตัว",
+    "nav.network": "เครือข่าย",
+    "nav.communications": "การสื่อสาร",
+    "nav.accounts": "บัญชี",
+    "nav.downloads": "ดาวน์โหลด",
+    "nav.explorer": "ตัวสำรวจ",
+    "nav.wallet": "เปิดกระเป๋า",
+    "nav.developers": "นักพัฒนา",
+    "nav.governance": "การกำกับดูแล",
+    "language.label": "ภาษา",
+    "footer.use": "ใช้งาน",
+    "footer.learn": "เรียนรู้เพิ่มเติม",
+    "footer.tagline": "เงินแบบโปรแกรมได้ที่เป็นส่วนตัว โครงสร้างพื้นฐานแบบเปิด และการสื่อสารเข้ารหัส"
+  },
+  "content": {}
+}

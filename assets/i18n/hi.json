@@ -1,0 +1,20 @@
+{
+  "locale": "hi",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "गोपनीयता",
+    "nav.network": "नेटवर्क",
+    "nav.communications": "संचार",
+    "nav.accounts": "खाते",
+    "nav.downloads": "डाउनलोड",
+    "nav.explorer": "एक्सप्लोरर",
+    "nav.wallet": "वॉलेट खोलें",
+    "nav.developers": "डेवलपर",
+    "nav.governance": "शासन",
+    "language.label": "भाषा",
+    "footer.use": "उपयोग",
+    "footer.learn": "और जानें",
+    "footer.tagline": "निजी प्रोग्राम योग्य मुद्रा, खुला बुनियादी ढाँचा और एन्क्रिप्टेड संचार।"
+  },
+  "content": {}
+}

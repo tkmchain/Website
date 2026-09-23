@@ -1,0 +1,20 @@
+{
+  "locale": "de",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Privatsphäre",
+    "nav.network": "Netzwerk",
+    "nav.communications": "Kommunikation",
+    "nav.accounts": "Konten",
+    "nav.downloads": "Downloads",
+    "nav.explorer": "Explorer",
+    "nav.wallet": "Wallet öffnen",
+    "nav.developers": "Entwickler",
+    "nav.governance": "Governance",
+    "language.label": "Sprache",
+    "footer.use": "Verwenden",
+    "footer.learn": "Mehr erfahren",
+    "footer.tagline": "Private programmierbare Währung, offene Infrastruktur und verschlüsselte Kommunikation."
+  },
+  "content": {}
+}

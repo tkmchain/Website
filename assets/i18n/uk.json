@@ -1,0 +1,20 @@
+{
+  "locale": "uk",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Приватність",
+    "nav.network": "Мережа",
+    "nav.communications": "Комунікації",
+    "nav.accounts": "Облікові записи",
+    "nav.downloads": "Завантаження",
+    "nav.explorer": "Оглядач",
+    "nav.wallet": "Відкрити гаманець",
+    "nav.developers": "Розробники",
+    "nav.governance": "Управління",
+    "language.label": "Мова",
+    "footer.use": "Використання",
+    "footer.learn": "Дізнатися більше",
+    "footer.tagline": "Приватні програмовані гроші, відкрита інфраструктура та зашифровані комунікації."
+  },
+  "content": {}
+}

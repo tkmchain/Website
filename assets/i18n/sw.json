@@ -1,0 +1,20 @@
+{
+  "locale": "sw",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Faragha",
+    "nav.network": "Mtandao",
+    "nav.communications": "Mawasiliano",
+    "nav.accounts": "Akaunti",
+    "nav.downloads": "Vipakuliwa",
+    "nav.explorer": "Kichunguzi",
+    "nav.wallet": "Fungua pochi",
+    "nav.developers": "Waendelezaji",
+    "nav.governance": "Utawala",
+    "language.label": "Lugha",
+    "footer.use": "Tumia",
+    "footer.learn": "Jifunze zaidi",
+    "footer.tagline": "Pesa za faragha zinazoweza kupangwa, miundombinu wazi na mawasiliano yaliyosimbwa."
+  },
+  "content": {}
+}

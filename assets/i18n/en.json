@@ -1,0 +1,20 @@
+{
+  "locale": "en",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Privacy",
+    "nav.network": "Network",
+    "nav.communications": "Communications",
+    "nav.accounts": "Accounts",
+    "nav.downloads": "Downloads",
+    "nav.explorer": "Explorer",
+    "nav.wallet": "Open wallet",
+    "nav.developers": "Developers",
+    "nav.governance": "Governance",
+    "language.label": "Language",
+    "footer.use": "Use",
+    "footer.learn": "Learn",
+    "footer.tagline": "Private programmable money, open infrastructure, and encrypted communications."
+  },
+  "content": {}
+}

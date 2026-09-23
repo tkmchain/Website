@@ -1,0 +1,20 @@
+{
+  "locale": "id",
+  "direction": "ltr",
+  "ui": {
+    "nav.privacy": "Privasi",
+    "nav.network": "Jaringan",
+    "nav.communications": "Komunikasi",
+    "nav.accounts": "Akun",
+    "nav.downloads": "Unduhan",
+    "nav.explorer": "Penjelajah",
+    "nav.wallet": "Buka dompet",
+    "nav.developers": "Pengembang",
+    "nav.governance": "Tata kelola",
+    "language.label": "Bahasa",
+    "footer.use": "Gunakan",
+    "footer.learn": "Pelajari",
+    "footer.tagline": "Uang terprogram privat, infrastruktur terbuka, dan komunikasi terenkripsi."
+  },
+  "content": {}
+}

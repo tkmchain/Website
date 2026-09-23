@@ -52,28 +52,30 @@ function parseDocument(raw) {
   return { front, body };
 }
 
-function renderMarkdown(markdown) {
+function renderMarkdown(markdown, pageSlug) {
   const lines = markdown.replaceAll('\r\n', '\n').split('\n');
   const out = [];
   let paragraph = [];
   let list = null;
   let code = null;
+  let block = 0;
+  const nextKey = () => `content.${pageSlug}.block${++block}`;
   const flushParagraph = () => {
     if (paragraph.length) {
-      out.push(`<p>${inline(paragraph.join(' '))}</p>`);
+      out.push(`<p data-i18n-key="${nextKey()}">${inline(paragraph.join(' '))}</p>`);
       paragraph = [];
     }
   };
   const flushList = () => {
     if (!list) return;
-    out.push(`<${list.kind}>${list.items.map((item) => `<li>${inline(item)}</li>`).join('')}</${list.kind}>`);
+    out.push(`<${list.kind}>${list.items.map((item) => `<li data-i18n-key="${item.key}">${inline(item.text)}</li>`).join('')}</${list.kind}>`);
     list = null;
   };
   for (const line of lines) {
     if (line.startsWith('```')) {
       flushParagraph(); flushList();
       if (code) {
-        out.push(`<pre><code>${escapeHTML(code.join('\n'))}</code></pre>`);
+        out.push(`<pre data-i18n-key="${nextKey()}"><code>${escapeHTML(code.join('\n'))}</code></pre>`);
         code = null;
       } else code = [];
       continue;
@@ -85,7 +87,7 @@ function renderMarkdown(markdown) {
       flushParagraph(); flushList();
       const level = heading[1].length;
       const text = heading[2].trim();
-      out.push(`<h${level} id="${slugify(text)}">${inline(text)}</h${level}>`);
+      out.push(`<h${level} id="${slugify(text)}" data-i18n-key="${nextKey()}">${inline(text)}</h${level}>`);
       continue;
     }
     const unordered = line.match(/^\s*[-*]\s+(.+)$/);
@@ -94,12 +96,12 @@ function renderMarkdown(markdown) {
       flushParagraph();
       const kind = unordered ? 'ul' : 'ol';
       if (!list || list.kind !== kind) { flushList(); list = { kind, items: [] }; }
-      list.items.push((unordered || ordered)[1]);
+      list.items.push({ text: (unordered || ordered)[1], key: nextKey() });
       continue;
     }
     if (line.startsWith('> ')) {
       flushParagraph(); flushList();
-      out.push(`<blockquote>${inline(line.slice(2))}</blockquote>`);
+      out.push(`<blockquote data-i18n-key="${nextKey()}">${inline(line.slice(2))}</blockquote>`);
       continue;
     }
     paragraph.push(line.trim());
@@ -148,7 +150,6 @@ function layout(front, content) {
       </div>
     </div>
     <div id="language-status" class="language-status" role="status" aria-live="polite"></div>
-    <div id="google_translate_element" aria-hidden="true"></div>
   </header>
   <main class="container page-shell kind-${kind}">
     <article class="markdown-content">
@@ -181,6 +182,6 @@ for (const file of files) {
   const { front, body } = parseDocument(raw);
   const slug = front.slug || file.replace(/\.md$/, '');
   const output = slug === 'index' ? 'index.html' : `${slug}.html`;
-  await fs.writeFile(path.join(dist, output), layout({ ...front, slug }, renderMarkdown(body)));
+  await fs.writeFile(path.join(dist, output), layout({ ...front, slug }, renderMarkdown(body, slug)));
 }
 console.log(`Built ${files.length} Markdown pages into ${path.relative(root, dist)}/`);
