@@ -12,6 +12,7 @@ The website is authored in Markdown and published as generated HTML on GitHub Pa
 - `content/en/communications.md` — Phone and EmailVM
 - `content/en/developers.md` — developer tools
 - `content/en/governance.md` — governance and finality
+- `site.config.json` — current TKMChain and XMRig release versions and release URLs
 
 Keep page metadata in the front matter at the top of each file. Links, headings, lists, and fenced code blocks are rendered by the dependency-free builder.
 
@@ -21,11 +22,11 @@ Keep page metadata in the front matter at the top of each file. Links, headings,
 node scripts/build-site.mjs
 ```
 
-The generated site is written to `dist/`. It is intentionally ignored by Git because the Pages workflow builds it on every deployment.
+The generated site is written to `dist/`. It includes the legacy root English URLs plus localized trees such as `dist/en/`, `dist/zh/`, and `dist/ru/`. It is intentionally ignored by Git because the Pages workflow builds it on every deployment.
 
 ## Languages
 
-The header includes automatic language detection and twenty selectable languages. Translation runs locally from the versioned JSON catalogs in `assets/i18n/`, with no third-party translation script or visitor content sent to an external service. Catalogs contain UI labels and stable keys for Markdown blocks; untranslated blocks fall back to the English source so every page remains complete. English Markdown in `content/en/` remains canonical, while reviewed translations can be added incrementally to any catalog.
+The header includes automatic language detection and twenty selectable languages. The build creates a complete page tree for every route (`/en/`, `/zh/`, `/ru/`, and the other language routes), so page headings and body content are translated before delivery rather than translated only in the browser. Translation data lives in the versioned JSON catalogs in `assets/i18n/`; missing blocks safely fall back to the English source. English Markdown in `content/en/` remains canonical, while reviewed translations can be added incrementally to any catalog.
 
 ## GitHub Pages
 

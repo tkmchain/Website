@@ -7,21 +7,29 @@ kind: standard
 
 # Download TKMChain
 
-Choose the build for your operating system. Verify release checksums before running a node or miner, and use the Tor-only startup instructions when connecting to mainnet.
+Current TKMChain release: **{{TKM_VERSION}}**. Choose a build for your operating system, then verify the release checksums before running a node or miner. Use the Tor-only startup instructions when connecting to mainnet.
 
 ## Wallet and node
 
-- [Linux x86-64](download/linux-amd64.tar.gz)
-- [Linux ARM64](download/linux-arm64.tar.gz)
-- [Windows x86-64](download/windows-amd64.zip)
-- [macOS Intel](download/darwin-amd64.tar.gz)
-- [macOS Apple Silicon](download/darwin-arm64.tar.gz)
-- [Android wallet](download/app-release.apk)
+- [Linux x86-64 ({{TKM_VERSION}})]({{TKM_LINUX_AMD64}})
+- [Linux ARM64 ({{TKM_VERSION}})]({{TKM_LINUX_ARM64}})
+- [Windows x86-64 ({{TKM_VERSION}})]({{TKM_WINDOWS_AMD64}})
+- [macOS Intel ({{TKM_VERSION}})]({{TKM_MACOS_AMD64}})
+- [macOS Apple Silicon ({{TKM_VERSION}})]({{TKM_MACOS_ARM64}})
+- [Android wallet ({{TKM_VERSION}})]({{TKM_ANDROID}})
 
-## RandomX miners
+[View all TKMChain {{TKM_VERSION}} release contents]({{TKM_RELEASE_URL}})
 
-- [XMRig for Ubuntu x86-64](download/xmrig-ubuntu-amd64.tar.gz)
-- [Windows miner](download/gtkm-windows-amd64.zip)
+## XMRig miner
+
+Current TKM-compatible XMRig release: **{{XMRIG_VERSION}}**. These packages include the TKM pool configuration and are built for the supported CPU targets.
+
+- [Linux x86-64 ({{XMRIG_VERSION}})]({{XMRIG_LINUX_X64}})
+- [Linux ARM64 ({{XMRIG_VERSION}})]({{XMRIG_LINUX_ARM64}})
+- [Linux ARMv7 ({{XMRIG_VERSION}})]({{XMRIG_LINUX_ARMV7}})
+- [Windows x86-64 ({{XMRIG_VERSION}})]({{XMRIG_WINDOWS_X64}})
+
+[View all XMRig {{XMRIG_VERSION}} release contents]({{XMRIG_RELEASE_URL}})
 
 The miner connects to the configured TKM pool through Tor. Keep the supplied `config.json` beside the executable and follow the [XMRig mining guide](https://github.com/tkmchain/xmrig/blob/main/README.md).
 

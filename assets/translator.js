@@ -3,93 +3,81 @@
   const status = document.getElementById('language-status');
   const menu = document.querySelector('.menu');
   const links = document.querySelector('.nav-links');
-  const catalogPath = 'assets/i18n/';
-  const supported = [...(select?.options || [])]
-    .map((option) => option.value)
-    .filter((value) => value !== 'auto');
+  const body = document.body;
+  const currentRoute = body?.dataset.locale || 'en';
+  const siteRoute = body?.dataset.siteRoute || 'root';
+  const pageSlug = body?.dataset.page || 'index';
   const catalogs = new Map();
+  const options = [...(select?.options || [])];
+  const supported = options.filter((option) => option.value !== 'auto');
+  const storage = {
+    get(key) { try { return localStorage.getItem(key); } catch { return null; } },
+    set(key, value) { try { localStorage.setItem(key, value); } catch { /* private browsing */ } },
+  };
 
   const normalize = (value) => {
-    const language = String(value || 'en').trim().replace('_', '-');
-    const lower = language.toLowerCase();
-    if (lower === 'zh' || lower.startsWith('zh-')) return 'zh-CN';
-    const exact = supported.find((item) => item.toLowerCase() === lower);
-    if (exact) return exact;
-    const base = lower.split('-')[0];
-    return supported.find((item) => item.toLowerCase() === base) || 'en';
+    const language = String(value || 'en').trim().replace('_', '-').toLowerCase();
+    if (language === 'zh' || language.startsWith('zh-')) return 'zh';
+    const exact = supported.find((option) => option.value.toLowerCase() === language);
+    if (exact) return exact.value;
+    const base = language.split('-')[0];
+    return supported.find((option) => option.value.toLowerCase() === base)?.value || 'en';
   };
 
   const browserLanguage = () => {
     const candidates = navigator.languages?.length ? navigator.languages : [navigator.language];
-    return candidates.find(Boolean) || 'en';
+    return normalize(candidates.find(Boolean) || 'en');
   };
 
-  const catalogFor = async (locale) => {
-    if (!catalogs.has(locale)) {
-      const request = fetch(`${catalogPath}${encodeURIComponent(locale)}.json`, { cache: 'no-cache' })
-        .then((response) => {
-          if (!response.ok) throw new Error(`Could not load ${locale} translation catalog`);
-          return response.json();
-        })
-        .catch(() => null);
-      catalogs.set(locale, request);
+  const catalogName = (route) => supported.find((option) => option.value === route)?.dataset.catalog || route;
+  const languageName = (route) => supported.find((option) => option.value === route)?.textContent || route;
+  const pageFile = pageSlug === 'index' ? 'index.html' : `${pageSlug}.html`;
+
+  const siteRoot = () => siteRoute === 'root'
+    ? new URL('./', window.location.href)
+    : new URL('../', window.location.href);
+
+  const pageUrl = (route) => new URL(`${route}/${pageFile}`, siteRoot()).href;
+  const catalogUrl = (route) => {
+    const assetRoot = siteRoute === 'root' ? new URL('assets/', window.location.href) : new URL('../assets/', window.location.href);
+    return new URL(`i18n/${encodeURIComponent(catalogName(route))}.json`, assetRoot).href;
+  };
+
+  const catalogFor = async (route) => {
+    if (!catalogs.has(route)) {
+      catalogs.set(route, fetch(catalogUrl(route), { cache: 'no-cache' })
+        .then((response) => response.ok ? response.json() : null)
+        .catch(() => null));
     }
-    return catalogs.get(locale);
-  };
-
-  const sourceMarkup = (element) => {
-    if (!element.dataset.i18nSource) element.dataset.i18nSource = element.innerHTML;
-    return element.dataset.i18nSource;
+    return catalogs.get(route);
   };
 
   const applyCatalog = (catalog) => {
     const ui = catalog?.ui || {};
     document.querySelectorAll('[data-i18n]').forEach((element) => {
-      const source = sourceMarkup(element);
+      const source = element.dataset.i18nSource || element.innerHTML;
+      element.dataset.i18nSource = source;
       const value = ui[element.dataset.i18n];
-      if (typeof value === 'string' && value.trim()) element.textContent = value;
-      else element.innerHTML = source;
+      element.innerHTML = typeof value === 'string' && value.trim() ? value : source;
     });
-
-    let translated = 0;
-    let fallback = 0;
-    const content = catalog?.content || {};
-    document.querySelectorAll('[data-i18n-key]').forEach((element) => {
-      const source = sourceMarkup(element);
-      const value = content[element.dataset.i18nKey];
-      // Keep blocks containing links in their source markup so labels and URLs stay together.
-      if (element.querySelector('a')) {
-        element.innerHTML = source;
-        fallback += 1;
-      } else if (typeof value === 'string' && value.trim()) {
-        element.textContent = value;
-        translated += 1;
-      } else {
-        element.innerHTML = source;
-        fallback += 1;
-      }
-    });
-    return { translated, fallback };
+    document.documentElement.lang = catalog?.locale || body?.dataset.locale || 'en';
+    document.documentElement.dir = catalog?.direction || 'ltr';
   };
 
-  const languageName = (locale) => {
-    const option = [...(select?.options || [])].find((item) => item.value === locale);
-    return option?.textContent || locale;
+  const navigateTo = (route) => {
+    const effectiveCurrent = siteRoute === 'root' ? 'en' : currentRoute;
+    if (route === effectiveCurrent) return false;
+    window.location.assign(pageUrl(route));
+    return true;
   };
 
   const translate = async (requested) => {
-    const detected = normalize(browserLanguage());
-    const locale = normalize(requested === 'auto' ? detected : requested);
-    const catalog = await catalogFor(locale);
-    const result = applyCatalog(catalog);
-    document.documentElement.lang = locale;
-    document.documentElement.dir = catalog?.direction || 'ltr';
-    if (status) {
-      const selected = requested === 'auto' ? `Auto-detect (${locale})` : languageName(locale);
-      const suffix = result.translated ? ` · ${result.translated} sections translated` : ' · source language';
-      status.textContent = `Language: ${selected}${suffix}`;
-    }
-    localStorage.setItem('tkm-language', requested);
+    const route = requested === 'auto' ? browserLanguage() : normalize(requested);
+    storage.set('tkm-language', requested);
+    if (navigateTo(route)) return;
+    const catalog = await catalogFor(route);
+    applyCatalog(catalog);
+    if (status) status.textContent = `Language: ${languageName(route)} · ${route}/ page`;
   };
 
   if (menu && links) {
@@ -100,7 +88,7 @@
   }
 
   if (select) {
-    const saved = localStorage.getItem('tkm-language') || 'auto';
+    const saved = storage.get('tkm-language') || 'auto';
     select.value = [...select.options].some((option) => option.value === saved) ? saved : 'auto';
     select.addEventListener('change', () => { void translate(select.value); });
     void translate(select.value);

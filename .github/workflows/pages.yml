@@ -38,8 +38,13 @@ jobs:
           for page in index smart-accounts privacy network communications developers governance download; do
             test -f "dist/$page.html"
           done
+          for language in en zh ru ja ko es ar fr de pt hi id tr it vi th uk pl nl sw; do
+            test -f "dist/$language/index.html"
+            test -f "dist/$language/download.html"
+          done
           node --check scripts/build-site.mjs
           node --check assets/translator.js
+          node -e "const c=require('./site.config.json'); if (c.tkmchain.version !== 'v1.21.24') throw new Error('Unexpected TKMChain release version'); if (!c.xmrig.version) throw new Error('Missing XMRig release version');"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

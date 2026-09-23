@@ -1,0 +1,10 @@
+{
+  "tkmchain": {
+    "version": "v1.21.24",
+    "releaseUrl": "https://github.com/tkmchain/go-tkmchain/releases/tag/v1.21.24"
+  },
+  "xmrig": {
+    "version": "v6.26.0-tkm.8",
+    "releaseUrl": "https://github.com/tkmchain/xmrig/releases/tag/v6.26.0-tkm.8"
+  }
+}

@@ -5,13 +5,31 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const source = path.join(root, 'content', 'en');
 const dist = path.join(root, 'dist');
+const config = JSON.parse(await fs.readFile(path.join(root, 'site.config.json'), 'utf8'));
 
+// Each route has its own generated page tree. The catalog filename can differ
+// from the public route (zh uses the zh-CN catalog).
 const languages = [
-  ['auto', 'Auto-detect'], ['zh-CN', '中文'], ['ru', 'Русский'], ['en', 'English'],
-  ['ja', '日本語'], ['ko', '한국어'], ['es', 'Español'], ['ar', 'العربية'],
-  ['fr', 'Français'], ['de', 'Deutsch'], ['pt', 'Português'], ['hi', 'हिन्दी'],
-  ['id', 'Bahasa Indonesia'], ['tr', 'Türkçe'], ['it', 'Italiano'], ['vi', 'Tiếng Việt'],
-  ['th', 'ไทย'], ['uk', 'Українська'], ['pl', 'Polski'], ['nl', 'Nederlands'], ['sw', 'Kiswahili'],
+  { route: 'en', catalog: 'en', htmlLang: 'en', label: 'English' },
+  { route: 'zh', catalog: 'zh-CN', htmlLang: 'zh-CN', label: '中文' },
+  { route: 'ru', catalog: 'ru', htmlLang: 'ru', label: 'Русский' },
+  { route: 'ja', catalog: 'ja', htmlLang: 'ja', label: '日本語' },
+  { route: 'ko', catalog: 'ko', htmlLang: 'ko', label: '한국어' },
+  { route: 'es', catalog: 'es', htmlLang: 'es', label: 'Español' },
+  { route: 'ar', catalog: 'ar', htmlLang: 'ar', label: 'العربية' },
+  { route: 'fr', catalog: 'fr', htmlLang: 'fr', label: 'Français' },
+  { route: 'de', catalog: 'de', htmlLang: 'de', label: 'Deutsch' },
+  { route: 'pt', catalog: 'pt', htmlLang: 'pt', label: 'Português' },
+  { route: 'hi', catalog: 'hi', htmlLang: 'hi', label: 'हिन्दी' },
+  { route: 'id', catalog: 'id', htmlLang: 'id', label: 'Bahasa Indonesia' },
+  { route: 'tr', catalog: 'tr', htmlLang: 'tr', label: 'Türkçe' },
+  { route: 'it', catalog: 'it', htmlLang: 'it', label: 'Italiano' },
+  { route: 'vi', catalog: 'vi', htmlLang: 'vi', label: 'Tiếng Việt' },
+  { route: 'th', catalog: 'th', htmlLang: 'th', label: 'ไทย' },
+  { route: 'uk', catalog: 'uk', htmlLang: 'uk', label: 'Українська' },
+  { route: 'pl', catalog: 'pl', htmlLang: 'pl', label: 'Polski' },
+  { route: 'nl', catalog: 'nl', htmlLang: 'nl', label: 'Nederlands' },
+  { route: 'sw', catalog: 'sw', htmlLang: 'sw', label: 'Kiswahili' },
 ];
 
 const escapeHTML = (value) => String(value)
@@ -52,23 +70,52 @@ function parseDocument(raw) {
   return { front, body };
 }
 
-function renderMarkdown(markdown, pageSlug) {
+function interpolate(markdown, assetPrefix) {
+  const values = {
+    '{{TKM_VERSION}}': config.tkmchain.version,
+    '{{TKM_RELEASE_URL}}': config.tkmchain.releaseUrl,
+    '{{XMRIG_VERSION}}': config.xmrig.version,
+    '{{XMRIG_RELEASE_URL}}': config.xmrig.releaseUrl,
+    '{{TKM_LINUX_AMD64}}': `${assetPrefix}download/linux-amd64.tar.gz`,
+    '{{TKM_LINUX_ARM64}}': `${assetPrefix}download/linux-arm64.tar.gz`,
+    '{{TKM_WINDOWS_AMD64}}': `${assetPrefix}download/windows-amd64.zip`,
+    '{{TKM_MACOS_AMD64}}': `${assetPrefix}download/darwin-amd64.tar.gz`,
+    '{{TKM_MACOS_ARM64}}': `${assetPrefix}download/darwin-arm64.tar.gz`,
+    '{{TKM_ANDROID}}': `${assetPrefix}download/app-release.apk`,
+    '{{XMRIG_LINUX_X64}}': `${assetPrefix}download/miner/linux-amd64.tar.gz`,
+    '{{XMRIG_LINUX_ARM64}}': `${assetPrefix}download/miner/linux-arm64.tar.gz`,
+    '{{XMRIG_LINUX_ARMV7}}': `${assetPrefix}download/miner/linux-armv7.tar.gz`,
+    '{{XMRIG_WINDOWS_X64}}': `${assetPrefix}download/miner/windows-amd64.zip`,
+  };
+  return Object.entries(values).reduce((result, [token, value]) => result.replaceAll(token, value), markdown);
+}
+
+function renderMarkdown(markdown, pageSlug, catalog = {}) {
   const lines = markdown.replaceAll('\r\n', '\n').split('\n');
   const out = [];
   let paragraph = [];
   let list = null;
   let code = null;
   let block = 0;
+  const content = catalog.content || {};
   const nextKey = () => `content.${pageSlug}.block${++block}`;
+  const localized = (text, key) => {
+    const candidate = content[key];
+    // Keep source links intact unless a catalog supplies a translated link too.
+    if (typeof candidate !== 'string' || !candidate.trim()) return text;
+    if (/\[[^\]]+\]\([^)]*\)/.test(text) && !/\[[^\]]+\]\([^)]*\)/.test(candidate)) return text;
+    return candidate;
+  };
   const flushParagraph = () => {
     if (paragraph.length) {
-      out.push(`<p data-i18n-key="${nextKey()}">${inline(paragraph.join(' '))}</p>`);
+      const key = nextKey();
+      out.push(`<p data-i18n-key="${key}">${inline(localized(paragraph.join(' '), key))}</p>`);
       paragraph = [];
     }
   };
   const flushList = () => {
     if (!list) return;
-    out.push(`<${list.kind}>${list.items.map((item) => `<li data-i18n-key="${item.key}">${inline(item.text)}</li>`).join('')}</${list.kind}>`);
+    out.push(`<${list.kind}>${list.items.map((item) => `<li data-i18n-key="${item.key}">${inline(localized(item.text, item.key))}</li>`).join('')}</${list.kind}>`);
     list = null;
   };
   for (const line of lines) {
@@ -86,8 +133,9 @@ function renderMarkdown(markdown, pageSlug) {
     if (heading) {
       flushParagraph(); flushList();
       const level = heading[1].length;
-      const text = heading[2].trim();
-      out.push(`<h${level} id="${slugify(text)}" data-i18n-key="${nextKey()}">${inline(text)}</h${level}>`);
+      const key = nextKey();
+      const text = localized(heading[2].trim(), key);
+      out.push(`<h${level} id="${slugify(text)}" data-i18n-key="${key}">${inline(text)}</h${level}>`);
       continue;
     }
     const unordered = line.match(/^\s*[-*]\s+(.+)$/);
@@ -101,7 +149,8 @@ function renderMarkdown(markdown, pageSlug) {
     }
     if (line.startsWith('> ')) {
       flushParagraph(); flushList();
-      out.push(`<blockquote data-i18n-key="${nextKey()}">${inline(line.slice(2))}</blockquote>`);
+      const key = nextKey();
+      out.push(`<blockquote data-i18n-key="${key}">${inline(localized(line.slice(2), key))}</blockquote>`);
       continue;
     }
     paragraph.push(line.trim());
@@ -111,16 +160,25 @@ function renderMarkdown(markdown, pageSlug) {
   return out.join('\n');
 }
 
-const languageOptions = languages.map(([value, label]) => `<option value="${value}">${label}</option>`).join('');
+function pageFile(slug) {
+  return slug === 'index' ? 'index.html' : `${slug}.html`;
+}
 
-function layout(front, content) {
+function languageOptions(selected) {
+  return [
+    '<option value="auto">Auto-detect</option>',
+    ...languages.map((language) => `<option value="${language.route}" data-catalog="${language.catalog}"${language.route === selected ? ' selected' : ''}>${language.label}</option>`),
+  ].join('');
+}
+
+function layout(front, content, { language, assetPrefix, siteRoute }) {
   const title = escapeHTML(front.title || 'TKMChain');
   const description = escapeHTML(front.description || 'TKMChain');
   const kind = escapeHTML(front.kind || 'standard');
-  const home = front.slug === 'index';
-  const prefix = home ? '' : '';
+  const href = (slug) => `${assetPrefix}${pageFile(slug)}`;
+  const direction = language.catalog === 'ar' ? 'rtl' : 'ltr';
   return `<!doctype html>
-<html lang="en">
+<html lang="${escapeHTML(language.htmlLang)}" dir="${direction}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -128,24 +186,24 @@ function layout(front, content) {
   <meta name="description" content="${description}">
   <meta name="theme-color" content="#111a2d">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312171c'/%3E%3Cpath d='M17 16h30v8H36v24h-8V24H17z' fill='%23f0b90b'/%3E%3Cpath d='M13 48h38v4H13z' fill='%2327b782'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="${prefix}assets/site.css">
+  <link rel="stylesheet" href="${assetPrefix}assets/site.css">
 </head>
-<body data-page="${escapeHTML(front.slug || 'page')}">
+<body data-page="${escapeHTML(front.slug || 'page')}" data-locale="${escapeHTML(language.route)}" data-site-route="${escapeHTML(siteRoute)}" data-catalog="${escapeHTML(language.catalog)}">
   <header class="site-header">
     <div class="container nav">
-      <a class="brand" href="${prefix}index.html" aria-label="TKMChain home"><span class="brandmark">TK</span><span>TKMChain</span></a>
+      <a class="brand" href="${href('index')}" aria-label="TKMChain home"><span class="brandmark">TK</span><span>TKMChain</span></a>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="${prefix}privacy.html" data-i18n="nav.privacy">Privacy</a>
-        <a href="${prefix}network.html" data-i18n="nav.network">Network</a>
-        <a href="${prefix}communications.html" data-i18n="nav.communications">Communications</a>
-        <a href="${prefix}developers.html" data-i18n="nav.developers">Developers</a>
-        <a href="${prefix}governance.html" data-i18n="nav.governance">Governance</a>
-        <a href="${prefix}download.html" data-i18n="nav.downloads">Downloads</a>
+        <a href="${href('privacy')}" data-i18n="nav.privacy">Privacy</a>
+        <a href="${href('network')}" data-i18n="nav.network">Network</a>
+        <a href="${href('communications')}" data-i18n="nav.communications">Communications</a>
+        <a href="${href('developers')}" data-i18n="nav.developers">Developers</a>
+        <a href="${href('governance')}" data-i18n="nav.governance">Governance</a>
+        <a href="${href('download')}" data-i18n="nav.downloads">Downloads</a>
         <a href="https://block.tkmchain.site" data-i18n="nav.explorer">Explorer</a>
         <a class="nav-cta" href="https://wallet.tkmchain.site" data-i18n="nav.wallet">Open wallet</a>
       </nav>
       <div class="nav-tools">
-        <label class="language-picker"><span class="sr-only" data-i18n="language.label">Language</span><select id="language-select" aria-label="Language">${languageOptions}</select></label>
+        <label class="language-picker"><span class="sr-only" data-i18n="language.label">Language</span><select id="language-select" aria-label="Language">${languageOptions(language.route)}</select></label>
         <button class="menu" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
     </div>
@@ -160,11 +218,11 @@ ${content}
     <div class="container footer-grid">
       <div><div class="brand"><span class="brandmark">TK</span><span>TKMChain</span></div><p data-i18n="footer.tagline">Private programmable money, open infrastructure, and encrypted communications.</p></div>
       <div><h2 data-i18n="footer.use">Use</h2><a href="https://wallet.tkmchain.site" data-i18n="nav.wallet">Wallet</a><a href="https://block.tkmchain.site" data-i18n="nav.explorer">Explorer</a><a href="https://wallet.tkmchain.site/mail/">EmailVM</a></div>
-      <div><h2 data-i18n="footer.learn">Learn</h2><a href="${prefix}privacy.html">Shield3</a><a href="${prefix}network.html">Tor network</a><a href="${prefix}smart-accounts.html">Smart accounts</a><a href="${prefix}governance.html">Governance</a><a href="https://github.com/tkmchain/go-tkmchain">GitHub</a></div>
+      <div><h2 data-i18n="footer.learn">Learn</h2><a href="${href('privacy')}">Shield3</a><a href="${href('network')}">Tor network</a><a href="${href('smart-accounts')}">Smart accounts</a><a href="${href('governance')}">Governance</a><a href="https://github.com/tkmchain/go-tkmchain">GitHub</a></div>
     </div>
-    <div class="container footer-fine"><span>© 2026 TKMChain</span><span>Chain ID 8979 · Finality through block 41913</span></div>
+    <div class="container footer-fine"><span>© 2026 TKMChain · ${escapeHTML(config.tkmchain.version)}</span><span>Chain ID 8979 · Finality through block 41913</span></div>
   </footer>
-  <script src="${prefix}assets/translator.js" defer></script>
+  <script src="${assetPrefix}assets/translator.js" defer></script>
 </body>
 </html>`;
 }
@@ -173,15 +231,37 @@ await fs.rm(dist, { recursive: true, force: true });
 await fs.mkdir(dist, { recursive: true });
 await fs.cp(path.join(root, 'assets'), path.join(dist, 'assets'), { recursive: true });
 await fs.cp(path.join(root, 'download'), path.join(dist, 'download'), { recursive: true });
-for (const file of ['CNAME', '.nojekyll']) {
-  await fs.copyFile(path.join(root, file), path.join(dist, file));
+for (const file of ['CNAME', '.nojekyll']) await fs.copyFile(path.join(root, file), path.join(dist, file));
+
+const catalogCache = new Map();
+for (const language of languages) {
+  const raw = await fs.readFile(path.join(root, 'assets', 'i18n', `${language.catalog}.json`), 'utf8');
+  catalogCache.set(language.catalog, JSON.parse(raw));
 }
 const files = (await fs.readdir(source)).filter((file) => file.endsWith('.md')).sort();
+const documents = [];
 for (const file of files) {
   const raw = await fs.readFile(path.join(source, file), 'utf8');
-  const { front, body } = parseDocument(raw);
-  const slug = front.slug || file.replace(/\.md$/, '');
-  const output = slug === 'index' ? 'index.html' : `${slug}.html`;
-  await fs.writeFile(path.join(dist, output), layout({ ...front, slug }, renderMarkdown(body, slug)));
+  const parsed = parseDocument(raw);
+  documents.push({ file, ...parsed, slug: parsed.front.slug || file.replace(/\.md$/, '') });
 }
-console.log(`Built ${files.length} Markdown pages into ${path.relative(root, dist)}/`);
+
+async function writeTree(language, nested) {
+  const assetPrefix = nested ? '../' : '';
+  const siteRoute = nested ? language.route : 'root';
+  const outputDir = nested ? path.join(dist, language.route) : dist;
+  const catalog = catalogCache.get(language.catalog);
+  for (const document of documents) {
+    const body = interpolate(document.body, assetPrefix);
+    const html = layout({ ...document.front, slug: document.slug }, renderMarkdown(body, document.slug, catalog), { language, assetPrefix, siteRoute });
+    await fs.writeFile(path.join(outputDir, pageFile(document.slug)), html);
+  }
+}
+
+// Preserve the existing root URLs as English while adding /en/, /zh/, /ru/…
+await writeTree(languages[0], false);
+for (const language of languages) {
+  await fs.mkdir(path.join(dist, language.route), { recursive: true });
+  await writeTree(language, true);
+}
+console.log(`Built ${documents.length} pages for ${languages.length} language routes plus the English root into ${path.relative(root, dist)}/`);
