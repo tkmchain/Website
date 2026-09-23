@@ -45,6 +45,10 @@ jobs:
           node --check scripts/build-site.mjs
           node --check assets/translator.js
           node -e "const c=require('./site.config.json'); if (c.tkmchain.version !== 'v1.21.24') throw new Error('Unexpected TKMChain release version'); if (!c.xmrig.version) throw new Error('Missing XMRig release version');"
+          grep -q 'Shield3 让网络' dist/zh/index.html
+          grep -q 'TKM Phone 和 EmailVM' dist/zh/index.html
+          grep -q 'v1.21.24' dist/zh/download.html
+          grep -q 'v6.26.0-tkm.8' dist/zh/download.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

@@ -78,6 +78,25 @@
     "content.privacy.block13": "Reglas de prueba y repetición",
     "content.privacy.block16": "Envíos retransmitidos y patrocinados",
     "content.privacy.block19": "Divulgación selectiva",
-    "content.privacy.block21": "Límites y expectativas realistas"
+    "content.privacy.block21": "Límites y expectativas realistas",
+    "content.index.block5": "Shield3: transacciones privadas verificadas por pruebas",
+    "content.index.block6": "Tor: comunicación entre pares solo por onion",
+    "content.index.block7": "Cuentas poscuánticas: firmas ML-DSA-87",
+    "content.index.block8": "Ejecución: EVM, TVM y prueba de trabajo RandomX",
+    "content.index.block9": "Comunicaciones: TKM Phone y EmailVM",
+    "content.index.block10": "Ancla de red: finalidad hasta el bloque 41913",
+    "content.index.block12": "Shield3 permite que la red verifique autorización, saldo y protección contra repetición sin publicar cantidades en claro ni destinatarios para cada observador.",
+    "content.index.block14": "Shield3 usa notas cifradas, claves de salida de un solo uso, intenciones vinculadas a pruebas y nulificadores. Admite varias entradas privadas y el consenso limita los recursos y la operación a 5.000.000 TKM.",
+    "content.index.block15": "Las claves de visualización y divulgación de pagos permiten compartir un pago o un historial limitado con un banco, auditor o contraparte cuando tú lo decidas. La cadena pública aún muestra los campos necesarios para el consenso, como hashes, compromisos, nulificadores, gas e inclusión en bloques.",
+    "content.index.block18": "El modo solo onion enruta el tráfico de pares configurado mediante Tor, desactiva el descubrimiento clearnet y los anuncios NAT, y publica un nombre onion en lugar de una IP pública. Los nodos rechazan iniciar de forma insegura cuando la configuración onion está incompleta.",
+    "content.index.block19": "Tor reduce la exposición directa del origen de red, pero no elimina los metadatos de tiempo o de los extremos que puede ver un observador global. Las llamadas locales del monedero y del prover permanecen en loopback para que las claves privadas y el material de prueba no viajen por la red.",
+    "content.index.block22": "TKM Phone y EmailVM hacen que las comunicaciones cifradas conozcan la red sin poner conversaciones en claro en la cadena.",
+    "content.index.block23": "TKM Phone registra mediante el daemon la propiedad del número, la autorización del dispositivo, los mensajes cifrados y la señalización de llamadas. EmailVM vincula dominios y buzones al estado canónico de la cadena y cifra los mensajes para las claves publicadas del buzón.",
+    "content.index.block24": "La cadena puede verificar que una acción fue autorizada y pagada sin recibir el cuerpo del mensaje, la clave privada ni el audio. Tu extremo sigue siendo importante: protege el dispositivo, navegador, material de recuperación y acceso del destinatario.",
+    "content.index.block27": "Usa carteras y RPC estándar cuando ayuden a la compatibilidad. Usa las API específicas de TKM para privacidad, cuentas poscuánticas, TVM, comunicaciones, minería y gobernanza.",
+    "content.index.block29": "Prueba de trabajo optimizada para CPU con mineros oficiales y soporte para pools onion. [Descargar mineros](download.html)",
+    "content.index.block31": "Contratos compatibles con Ethereum y módulos nativos deterministas con límites. [Ver herramientas de desarrollo](developers.html)",
+    "content.index.block33": "Rotating Kings, divulgaciones firmadas, puntos de control y un límite permanente en el bloque 41913. [Ver gobernanza](governance.html)",
+    "content.index.block35": "Abre la cartera, inspecciona la cadena, conéctate mediante Tor o descarga un minero RandomX compatible con TKM."
   }
 }

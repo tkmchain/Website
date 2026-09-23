@@ -78,6 +78,25 @@
     "content.privacy.block13": "証明とリプレイ防止の規則",
     "content.privacy.block16": "リレー送信とスポンサー送信",
     "content.privacy.block19": "選択的開示",
-    "content.privacy.block21": "制限と現実的な期待"
+    "content.privacy.block21": "制限と現実的な期待",
+    "content.index.block5": "Shield3：証明で検証されるプライベート取引",
+    "content.index.block6": "Tor：オニオン経由のみのピア通信",
+    "content.index.block7": "ポスト量子アカウント：ML-DSA-87 署名",
+    "content.index.block8": "実行環境：EVM、TVM、RandomX PoW",
+    "content.index.block9": "通信：TKM Phone と EmailVM",
+    "content.index.block10": "ネットワークアンカー：41913 ブロックまで確定",
+    "content.index.block12": "Shield3 は、平文の金額や受取人をすべての観測者に公開せず、ネットワークが認証、残高、リプレイ防止を検証できるようにします。",
+    "content.index.block14": "Shield3 は暗号化ノート、ワンタイム出力キー、証明に結び付いた意図、ヌリファイアを使用します。複数のプライベート入力をサポートし、コンセンサスはリソースと 5,000,000 TKM の操作上限を強制します。",
+    "content.index.block15": "閲覧キーと支払い開示キーを使えば、選択した一件の支払いまたは範囲を限定した履歴を銀行、監査人、取引相手に共有できます。公開チェーンにはハッシュ、コミットメント、ヌリファイア、ガス、ブロック登録などコンセンサスに必要なフィールドが残ります。",
+    "content.index.block18": "オニオン専用モードは設定されたピア通信を Tor 経由で行い、clearnet の探索と NAT 広告を無効にし、公開 IP の代わりにオニオンホスト名を公開します。オニオン設定が不完全な場合、ノードは安全でない起動を拒否します。",
+    "content.index.block19": "Tor は直接のネットワーク発信元の露出を減らしますが、世界規模の観測者に見える時間やエンドポイントのメタデータを消すものではありません。ウォレットとプローバーのローカル呼び出しは loopback に留まり、秘密鍵と証明素材はネットワークを通りません。",
+    "content.index.block22": "TKM Phone と EmailVM は、平文の会話をチェーンに置かずに、暗号化通信をネットワーク対応にします。",
+    "content.index.block23": "TKM Phone はデーモンを通じて番号の所有権、デバイス認証、暗号化メッセージ、通話シグナリングを記録します。EmailVM はドメインとメールボックスを正規チェーン状態に結び付け、公開されたメールボックスキー向けにメッセージを暗号化します。",
+    "content.index.block24": "チェーンはメッセージ本文、秘密鍵、音声を受け取らずに、操作が承認され支払われたことを検証できます。エンドポイントの安全性は重要です。デバイス、ブラウザー、復旧情報、受信者のアクセスを守ってください。",
+    "content.index.block27": "互換性が必要な場合は標準ウォレットと RPC を使い、プライバシー、ポスト量子アカウント、TVM、通信、マイニング、ガバナンスには TKM 固有 API を使います。",
+    "content.index.block29": "公式マイナーとオニオンプールに対応した CPU 向けのプルーフ・オブ・ワークです。[マイナーをダウンロード](download.html)",
+    "content.index.block31": "Ethereum 互換コントラクトと、制限された決定的ネイティブモジュールです。[開発者ツールを見る](developers.html)",
+    "content.index.block33": "ローテーションキング、署名付き開示、チェックポイント、41913 ブロックの恒久境界です。[ガバナンスを見る](governance.html)",
+    "content.index.block35": "ウォレットを開き、チェーンを確認し、Tor 経由で接続するか、TKM 対応 RandomX マイナーをダウンロードしてください。"
   }
 }

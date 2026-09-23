@@ -78,6 +78,25 @@
     "content.privacy.block13": "증명 및 재생 방지 규칙",
     "content.privacy.block16": "릴레이 및 스폰서 전송",
     "content.privacy.block19": "선택적 공개",
-    "content.privacy.block21": "제한과 현실적인 기대"
+    "content.privacy.block21": "제한과 현실적인 기대",
+    "content.index.block5": "Shield3: 증명으로 검증되는 비공개 거래",
+    "content.index.block6": "Tor: onion 전용 피어 네트워크",
+    "content.index.block7": "포스트 양자 계정: ML-DSA-87 서명",
+    "content.index.block8": "런타임: EVM, TVM 및 RandomX 작업 증명",
+    "content.index.block9": "통신: TKM Phone 및 EmailVM",
+    "content.index.block10": "네트워크 기준점: 41913 블록까지 최종성",
+    "content.index.block12": "Shield3는 모든 관찰자에게 평문 금액과 수신자를 공개하지 않고도 네트워크가 승인, 잔액, 재생 방지를 검증하도록 합니다.",
+    "content.index.block14": "Shield3는 암호화된 노트, 일회용 출력 키, 증명에 결합된 의도, 널리파이어를 사용합니다. 여러 비공개 입력을 지원하며 합의는 자원과 5,000,000 TKM 작업 한도를 강제합니다.",
+    "content.index.block15": "뷰잉 키와 결제 공개 키를 사용하면 원하는 경우 은행, 감사자 또는 거래 상대방에게 한 번의 결제나 제한된 기록을 공유할 수 있습니다. 공개 체인에는 해시, 커밋먼트, 널리파이어, 가스, 블록 포함처럼 합의에 필요한 필드가 남습니다.",
+    "content.index.block18": "onion 전용 모드는 설정된 피어 트래픽을 Tor로 라우팅하고 clearnet 검색과 NAT 광고를 끄며 공용 IP 대신 onion 호스트 이름을 게시합니다. onion 설정이 완전하지 않으면 노드는 안전하지 않은 시작을 거부합니다.",
+    "content.index.block19": "Tor는 직접적인 네트워크 출처 노출을 줄이지만 전역 관찰자에게 보이는 시간과 엔드포인트 메타데이터를 없애지는 않습니다. 지갑과 prover 호출은 loopback에 머물러 개인 키와 증명 자료가 네트워크로 나가지 않습니다.",
+    "content.index.block22": "TKM Phone과 EmailVM은 평문 대화를 체인에 올리지 않고 암호화 통신을 네트워크에 연결합니다.",
+    "content.index.block23": "TKM Phone은 데몬을 통해 번호 소유권, 기기 승인, 암호화 메시지와 통화 신호를 기록합니다. EmailVM은 도메인과 사서함을 정식 체인 상태에 연결하고 게시된 사서함 키로 메시지를 암호화합니다.",
+    "content.index.block24": "체인은 메시지 본문, 개인 키 또는 오디오를 받지 않고도 작업이 승인되고 지불되었는지 확인할 수 있습니다. 엔드포인트 보안도 중요하므로 기기, 브라우저, 복구 자료와 수신자 접근을 보호하세요.",
+    "content.index.block27": "호환성이 필요할 때는 표준 지갑과 RPC를 사용하고, 프라이버시, 포스트 양자 계정, TVM, 통신, 채굴, 거버넌스에는 TKM 전용 API를 사용하세요.",
+    "content.index.block29": "공식 마이너와 onion 풀을 지원하는 CPU 친화적 작업 증명입니다. [마이너 다운로드](download.html)",
+    "content.index.block31": "Ethereum 호환 컨트랙트와 제한된 결정적 네이티브 모듈입니다. [개발자 도구 보기](developers.html)",
+    "content.index.block33": "로테이팅 킹, 서명된 공개, 체크포인트와 41913 블록의 영구 경계입니다. [거버넌스 보기](governance.html)",
+    "content.index.block35": "지갑을 열고 체인을 확인하거나 Tor로 연결하거나 TKM 호환 RandomX 마이너를 다운로드하세요."
   }
 }
