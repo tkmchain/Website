@@ -25,13 +25,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Markdown site
+        run: node scripts/build-site.mjs
+
+      - name: Validate generated site
+        run: |
+          test -f dist/index.html
+          test -f dist/smart-accounts.html
+          test -f dist/download.html
+          node --check scripts/build-site.mjs
+          node --check assets/translator.js
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload static site
+      - name: Upload generated site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
