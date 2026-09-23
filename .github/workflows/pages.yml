@@ -35,9 +35,9 @@ jobs:
 
       - name: Validate generated site
         run: |
-          test -f dist/index.html
-          test -f dist/smart-accounts.html
-          test -f dist/download.html
+          for page in index smart-accounts privacy network communications developers governance download; do
+            test -f "dist/$page.html"
+          done
           node --check scripts/build-site.mjs
           node --check assets/translator.js
 

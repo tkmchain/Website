@@ -7,6 +7,11 @@ The website is authored in Markdown and published as generated HTML on GitHub Pa
 - `content/en/index.md` — landing page
 - `content/en/smart-accounts.md` — smart-account guide
 - `content/en/download.md` — downloads and node setup
+- `content/en/privacy.md` — Shield3 privacy
+- `content/en/network.md` — Tor-only networking
+- `content/en/communications.md` — Phone and EmailVM
+- `content/en/developers.md` — developer tools
+- `content/en/governance.md` — governance and finality
 
 Keep page metadata in the front matter at the top of each file. Links, headings, lists, and fenced code blocks are rendered by the dependency-free builder.
 

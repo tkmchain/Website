@@ -133,10 +133,11 @@ function layout(front, content) {
     <div class="container nav">
       <a class="brand" href="${prefix}index.html" aria-label="TKMChain home"><span class="brandmark">TK</span><span>TKMChain</span></a>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="${prefix}index.html#shield3-private-transactions" data-i18n="nav.privacy">Privacy</a>
-        <a href="${prefix}index.html#a-more-private-network-path" data-i18n="nav.network">Network</a>
-        <a href="${prefix}index.html#money-identity-and-messages" data-i18n="nav.communications">Communications</a>
-        <a href="${prefix}smart-accounts.html" data-i18n="nav.accounts">Accounts</a>
+        <a href="${prefix}privacy.html" data-i18n="nav.privacy">Privacy</a>
+        <a href="${prefix}network.html" data-i18n="nav.network">Network</a>
+        <a href="${prefix}communications.html" data-i18n="nav.communications">Communications</a>
+        <a href="${prefix}developers.html" data-i18n="nav.developers">Developers</a>
+        <a href="${prefix}governance.html" data-i18n="nav.governance">Governance</a>
         <a href="${prefix}download.html" data-i18n="nav.downloads">Downloads</a>
         <a href="https://block.tkmchain.site" data-i18n="nav.explorer">Explorer</a>
         <a class="nav-cta" href="https://wallet.tkmchain.site" data-i18n="nav.wallet">Open wallet</a>
@@ -158,7 +159,7 @@ ${content}
     <div class="container footer-grid">
       <div><div class="brand"><span class="brandmark">TK</span><span>TKMChain</span></div><p data-i18n="footer.tagline">Private programmable money, open infrastructure, and encrypted communications.</p></div>
       <div><h2 data-i18n="footer.use">Use</h2><a href="https://wallet.tkmchain.site" data-i18n="nav.wallet">Wallet</a><a href="https://block.tkmchain.site" data-i18n="nav.explorer">Explorer</a><a href="https://wallet.tkmchain.site/mail/">EmailVM</a></div>
-      <div><h2 data-i18n="footer.learn">Learn</h2><a href="${prefix}index.html#shield3-private-transactions">Shield3</a><a href="https://github.com/tkmchain/go-tkmchain/blob/artartical/docs/TOR_INSTALLATION.md">Tor guide</a><a href="https://github.com/tkmchain/go-tkmchain">GitHub</a></div>
+      <div><h2 data-i18n="footer.learn">Learn</h2><a href="${prefix}privacy.html">Shield3</a><a href="${prefix}network.html">Tor network</a><a href="${prefix}smart-accounts.html">Smart accounts</a><a href="${prefix}governance.html">Governance</a><a href="https://github.com/tkmchain/go-tkmchain">GitHub</a></div>
     </div>
     <div class="container footer-fine"><span>© 2026 TKMChain</span><span>Chain ID 8979 · Finality through block 41913</span></div>
   </footer>
