@@ -64,10 +64,6 @@
     "content.communications.block7": "EmailVM",
     "content.communications.block10": "Identidad y divulgación",
     "content.communications.block12": "Modelo de seguridad",
-    "content.download.block3": "Cartera y nodo",
-    "content.download.block11": "Minero XMRig",
-    "content.download.block19": "Ejecuta un nodo solo con Tor",
-    "content.download.block22": "Código fuente del lanzamiento",
     "content.governance.block4": "Main King y Rotating Kings",
     "content.governance.block6": "Puntos de control y límite permanente",
     "content.governance.block8": "Activación de Antartical",
@@ -97,6 +93,10 @@
     "content.index.block29": "Prueba de trabajo optimizada para CPU con mineros oficiales y soporte para pools onion. [Descargar mineros](download.html)",
     "content.index.block31": "Contratos compatibles con Ethereum y módulos nativos deterministas con límites. [Ver herramientas de desarrollo](developers.html)",
     "content.index.block33": "Rotating Kings, divulgaciones firmadas, puntos de control y un límite permanente en el bloque 41913. [Ver gobernanza](governance.html)",
-    "content.index.block35": "Abre la cartera, inspecciona la cadena, conéctate mediante Tor o descarga un minero RandomX compatible con TKM."
+    "content.index.block35": "Abre la cartera, inspecciona la cadena, conéctate mediante Tor o descarga un minero RandomX compatible con TKM.",
+    "content.download.block3": "Cartera y nodo",
+    "content.download.block10": "Minero XMRig",
+    "content.download.block27": "Ejecuta un nodo solo con Tor",
+    "content.download.block30": "Código fuente del lanzamiento"
   }
 }

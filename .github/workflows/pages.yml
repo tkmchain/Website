@@ -49,6 +49,9 @@ jobs:
           grep -q 'TKM Phone 和 EmailVM' dist/zh/index.html
           grep -q 'v1.21.24' dist/zh/download.html
           grep -q 'v6.26.0-tkm.8' dist/zh/download.html
+          ! grep -q 'href="download/' dist/download.html
+          grep -q 'releases/download/v1.21.24' dist/download.html
+          grep -q 'releases/download/v6.26.0-tkm.8' dist/download.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

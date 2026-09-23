@@ -64,10 +64,6 @@
     "content.communications.block7": "EmailVM",
     "content.communications.block10": "Идентичность и раскрытие",
     "content.communications.block12": "Модель безопасности",
-    "content.download.block3": "Кошелёк и узел",
-    "content.download.block11": "Майнер XMRig",
-    "content.download.block19": "Запуск узла только через Tor",
-    "content.download.block22": "Исходный код релиза",
     "content.governance.block4": "Главный и ротационные короли",
     "content.governance.block6": "Контрольные точки и постоянная граница",
     "content.governance.block8": "Активация Antartical",
@@ -97,6 +93,10 @@
     "content.index.block29": "Дружественное к CPU доказательство работы с официальными майнерами и onion-пулами. [Скачать майнеры](download.html)",
     "content.index.block31": "Совместимые с Ethereum контракты и ограниченные детерминированные нативные модули. [Инструменты разработчика](developers.html)",
     "content.index.block33": "Ротационные короли, подписанные раскрытия, контрольные точки и постоянная граница блока 41913. [Управление](governance.html)",
-    "content.index.block35": "Откройте кошелёк, изучите цепь, подключитесь через Tor или скачайте майнер RandomX для TKM."
+    "content.index.block35": "Откройте кошелёк, изучите цепь, подключитесь через Tor или скачайте майнер RandomX для TKM.",
+    "content.download.block3": "Кошелёк и узел",
+    "content.download.block10": "Майнер XMRig",
+    "content.download.block27": "Запуск узла только через Tor",
+    "content.download.block30": "Исходный код релиза"
   }
 }

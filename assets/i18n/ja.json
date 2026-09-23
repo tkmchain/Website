@@ -64,10 +64,6 @@
     "content.communications.block7": "EmailVM",
     "content.communications.block10": "ID と開示",
     "content.communications.block12": "安全モデル",
-    "content.download.block3": "ウォレットとノード",
-    "content.download.block11": "XMRig マイナー",
-    "content.download.block19": "Tor 専用ノードを実行",
-    "content.download.block22": "リリースソース",
     "content.governance.block4": "メインキングとローテーションキング",
     "content.governance.block6": "チェックポイントと恒久境界",
     "content.governance.block8": "Antartical の有効化",
@@ -97,6 +93,10 @@
     "content.index.block29": "公式マイナーとオニオンプールに対応した CPU 向けのプルーフ・オブ・ワークです。[マイナーをダウンロード](download.html)",
     "content.index.block31": "Ethereum 互換コントラクトと、制限された決定的ネイティブモジュールです。[開発者ツールを見る](developers.html)",
     "content.index.block33": "ローテーションキング、署名付き開示、チェックポイント、41913 ブロックの恒久境界です。[ガバナンスを見る](governance.html)",
-    "content.index.block35": "ウォレットを開き、チェーンを確認し、Tor 経由で接続するか、TKM 対応 RandomX マイナーをダウンロードしてください。"
+    "content.index.block35": "ウォレットを開き、チェーンを確認し、Tor 経由で接続するか、TKM 対応 RandomX マイナーをダウンロードしてください。",
+    "content.download.block3": "ウォレットとノード",
+    "content.download.block10": "XMRig マイナー",
+    "content.download.block27": "Tor 専用ノードを実行",
+    "content.download.block30": "リリースソース"
   }
 }

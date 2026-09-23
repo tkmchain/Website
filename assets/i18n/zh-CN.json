@@ -64,10 +64,6 @@
     "content.communications.block7": "EmailVM",
     "content.communications.block10": "身份与披露",
     "content.communications.block12": "安全模型",
-    "content.download.block3": "钱包与节点",
-    "content.download.block11": "XMRig 矿工",
-    "content.download.block19": "运行仅 Tor 节点",
-    "content.download.block22": "发布源代码",
     "content.governance.block4": "主王与轮换王",
     "content.governance.block6": "检查点与永久边界",
     "content.governance.block8": "Antartical 激活",
@@ -159,6 +155,10 @@
     "content.smart-accounts.block26": "中继：用户或应用中继者像普通合约交易一样提交已签名操作。",
     "content.smart-accounts.block27": "执行规则：账户检查 nonce、过期时间、签名、限额、会话和锁定状态。",
     "content.smart-accounts.block28": "执行：账户原子地转移 TKM 或调用选定的合约。",
-    "content.smart-accounts.block30": "智能账户系统不会创建主恢复密钥或特殊共识权力。Main King、Rotating King、节点运营者、机构和 EmailVM 邮箱所有者都不能绕过账户签名或夺取资金。"
+    "content.smart-accounts.block30": "智能账户系统不会创建主恢复密钥或特殊共识权力。Main King、Rotating King、节点运营者、机构和 EmailVM 邮箱所有者都不能绕过账户签名或夺取资金。",
+    "content.download.block3": "钱包与节点",
+    "content.download.block10": "XMRig 矿工",
+    "content.download.block27": "运行仅 Tor 节点",
+    "content.download.block30": "发布源代码"
   }
 }

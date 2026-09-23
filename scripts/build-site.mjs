@@ -70,22 +70,36 @@ function parseDocument(raw) {
   return { front, body };
 }
 
-function interpolate(markdown, assetPrefix) {
+function interpolate(markdown, _assetPrefix) {
+  const releaseAsset = (release, key) => {
+    const filename = release.assets[key].replaceAll('{version}', release.version);
+    return `${release.downloadBase}/${release.version}/${filename}`;
+  };
+  const tkm = config.tkmchain;
+  const xmrig = config.xmrig;
   const values = {
-    '{{TKM_VERSION}}': config.tkmchain.version,
-    '{{TKM_RELEASE_URL}}': config.tkmchain.releaseUrl,
-    '{{XMRIG_VERSION}}': config.xmrig.version,
-    '{{XMRIG_RELEASE_URL}}': config.xmrig.releaseUrl,
-    '{{TKM_LINUX_AMD64}}': `${assetPrefix}download/linux-amd64.tar.gz`,
-    '{{TKM_LINUX_ARM64}}': `${assetPrefix}download/linux-arm64.tar.gz`,
-    '{{TKM_WINDOWS_AMD64}}': `${assetPrefix}download/windows-amd64.zip`,
-    '{{TKM_MACOS_AMD64}}': `${assetPrefix}download/darwin-amd64.tar.gz`,
-    '{{TKM_MACOS_ARM64}}': `${assetPrefix}download/darwin-arm64.tar.gz`,
-    '{{TKM_ANDROID}}': `${assetPrefix}download/app-release.apk`,
-    '{{XMRIG_LINUX_X64}}': `${assetPrefix}download/miner/linux-amd64.tar.gz`,
-    '{{XMRIG_LINUX_ARM64}}': `${assetPrefix}download/miner/linux-arm64.tar.gz`,
-    '{{XMRIG_LINUX_ARMV7}}': `${assetPrefix}download/miner/linux-armv7.tar.gz`,
-    '{{XMRIG_WINDOWS_X64}}': `${assetPrefix}download/miner/windows-amd64.zip`,
+    '{{TKM_VERSION}}': tkm.version,
+    '{{TKM_RELEASE_URL}}': tkm.releaseUrl,
+    '{{XMRIG_VERSION}}': xmrig.version,
+    '{{XMRIG_RELEASE_URL}}': xmrig.releaseUrl,
+    '{{TKM_LINUX_AMD64}}': releaseAsset(tkm, 'linuxAmd64'),
+    '{{TKM_MACOS}}': releaseAsset(tkm, 'macos'),
+    '{{TKM_WINDOWS}}': releaseAsset(tkm, 'windows'),
+    '{{TKM_WINDOWS_WALLET}}': releaseAsset(tkm, 'windowsWallet'),
+    '{{TKM_ANDROID}}': releaseAsset(tkm, 'android'),
+    '{{XMRIG_LINUX_X86}}': releaseAsset(xmrig, 'linuxX86'),
+    '{{XMRIG_LINUX_X64}}': releaseAsset(xmrig, 'linuxX64'),
+    '{{XMRIG_LINUX_ARMV7}}': releaseAsset(xmrig, 'linuxArmv7'),
+    '{{XMRIG_LINUX_ARMV8}}': releaseAsset(xmrig, 'linuxArmv8'),
+    '{{XMRIG_LINUX_RISCV64}}': releaseAsset(xmrig, 'linuxRiscv64'),
+    '{{XMRIG_WINDOWS_X86}}': releaseAsset(xmrig, 'windowsX86'),
+    '{{XMRIG_WINDOWS_X64}}': releaseAsset(xmrig, 'windowsX64'),
+    '{{XMRIG_MACOS_X64}}': releaseAsset(xmrig, 'macosX64'),
+    '{{XMRIG_MACOS_ARMV8}}': releaseAsset(xmrig, 'macosArmv8'),
+    '{{XMRIG_ANDROID_X86}}': releaseAsset(xmrig, 'androidX86'),
+    '{{XMRIG_ANDROID_X64}}': releaseAsset(xmrig, 'androidX64'),
+    '{{XMRIG_ANDROID_ARMV7}}': releaseAsset(xmrig, 'androidArmv7'),
+    '{{XMRIG_ANDROID_ARMV8}}': releaseAsset(xmrig, 'androidArmv8'),
   };
   return Object.entries(values).reduce((result, [token, value]) => result.replaceAll(token, value), markdown);
 }
@@ -230,7 +244,6 @@ ${content}
 await fs.rm(dist, { recursive: true, force: true });
 await fs.mkdir(dist, { recursive: true });
 await fs.cp(path.join(root, 'assets'), path.join(dist, 'assets'), { recursive: true });
-await fs.cp(path.join(root, 'download'), path.join(dist, 'download'), { recursive: true });
 for (const file of ['CNAME', '.nojekyll']) await fs.copyFile(path.join(root, file), path.join(dist, file));
 
 const catalogCache = new Map();

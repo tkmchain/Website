@@ -14,6 +14,8 @@ The website is authored in Markdown and published as generated HTML on GitHub Pa
 - `content/en/governance.md` — governance and finality
 - `site.config.json` — current TKMChain and XMRig release versions and release URLs
 
+The download page uses direct assets from the configured GitHub releases. It does not proxy or duplicate release archives through GitHub Pages.
+
 Keep page metadata in the front matter at the top of each file. Links, headings, lists, and fenced code blocks are rendered by the dependency-free builder.
 
 ## Build locally

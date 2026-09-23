@@ -12,10 +12,9 @@ Current TKMChain release: **{{TKM_VERSION}}**. Choose a build for your operating
 ## Wallet and node
 
 - [Linux x86-64 ({{TKM_VERSION}})]({{TKM_LINUX_AMD64}})
-- [Linux ARM64 ({{TKM_VERSION}})]({{TKM_LINUX_ARM64}})
-- [Windows x86-64 ({{TKM_VERSION}})]({{TKM_WINDOWS_AMD64}})
-- [macOS Intel ({{TKM_VERSION}})]({{TKM_MACOS_AMD64}})
-- [macOS Apple Silicon ({{TKM_VERSION}})]({{TKM_MACOS_ARM64}})
+- [Windows node ({{TKM_VERSION}})]({{TKM_WINDOWS}})
+- [Windows GUI wallet ({{TKM_VERSION}})]({{TKM_WINDOWS_WALLET}})
+- [macOS release ({{TKM_VERSION}})]({{TKM_MACOS}})
 - [Android wallet ({{TKM_VERSION}})]({{TKM_ANDROID}})
 
 [View all TKMChain {{TKM_VERSION}} release contents]({{TKM_RELEASE_URL}})
@@ -24,10 +23,19 @@ Current TKMChain release: **{{TKM_VERSION}}**. Choose a build for your operating
 
 Current TKM-compatible XMRig release: **{{XMRIG_VERSION}}**. These packages include the TKM pool configuration and are built for the supported CPU targets.
 
+- [Linux x86 ({{XMRIG_VERSION}})]({{XMRIG_LINUX_X86}})
 - [Linux x86-64 ({{XMRIG_VERSION}})]({{XMRIG_LINUX_X64}})
-- [Linux ARM64 ({{XMRIG_VERSION}})]({{XMRIG_LINUX_ARM64}})
 - [Linux ARMv7 ({{XMRIG_VERSION}})]({{XMRIG_LINUX_ARMV7}})
+- [Linux ARM64 ({{XMRIG_VERSION}})]({{XMRIG_LINUX_ARMV8}})
+- [Linux RISC-V 64 ({{XMRIG_VERSION}})]({{XMRIG_LINUX_RISCV64}})
+- [Windows x86 ({{XMRIG_VERSION}})]({{XMRIG_WINDOWS_X86}})
 - [Windows x86-64 ({{XMRIG_VERSION}})]({{XMRIG_WINDOWS_X64}})
+- [macOS Intel ({{XMRIG_VERSION}})]({{XMRIG_MACOS_X64}})
+- [macOS ARM64 ({{XMRIG_VERSION}})]({{XMRIG_MACOS_ARMV8}})
+- [Android x86 ({{XMRIG_VERSION}})]({{XMRIG_ANDROID_X86}})
+- [Android x86-64 ({{XMRIG_VERSION}})]({{XMRIG_ANDROID_X64}})
+- [Android ARMv7 ({{XMRIG_VERSION}})]({{XMRIG_ANDROID_ARMV7}})
+- [Android ARM64 ({{XMRIG_VERSION}})]({{XMRIG_ANDROID_ARMV8}})
 
 [View all XMRig {{XMRIG_VERSION}} release contents]({{XMRIG_RELEASE_URL}})
 

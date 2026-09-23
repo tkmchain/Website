@@ -1,10 +1,34 @@
 {
   "tkmchain": {
     "version": "v1.21.24",
-    "releaseUrl": "https://github.com/tkmchain/go-tkmchain/releases/tag/v1.21.24"
+    "releaseUrl": "https://github.com/tkmchain/go-tkmchain/releases/tag/v1.21.24",
+    "downloadBase": "https://github.com/tkmchain/go-tkmchain/releases/download",
+    "assets": {
+      "linuxAmd64": "gtkm-{version}-linux-amd64.tar.gz",
+      "macos": "gtkm-{version}-macos.tar.gz",
+      "windows": "gtkm-{version}-windows.zip",
+      "windowsWallet": "TKM-Wallet-{version}-windows-x64.zip",
+      "android": "TKM-Wallet-{version}-android-arm64.apk"
+    }
   },
   "xmrig": {
     "version": "v6.26.0-tkm.8",
-    "releaseUrl": "https://github.com/tkmchain/xmrig/releases/tag/v6.26.0-tkm.8"
+    "releaseUrl": "https://github.com/tkmchain/xmrig/releases/tag/v6.26.0-tkm.8",
+    "downloadBase": "https://github.com/tkmchain/xmrig/releases/download",
+    "assets": {
+      "linuxX86": "xmrig-linux-x86.tar.gz",
+      "linuxX64": "xmrig-linux-x64.tar.gz",
+      "linuxArmv7": "xmrig-linux-armv7.tar.gz",
+      "linuxArmv8": "xmrig-linux-armv8.tar.gz",
+      "linuxRiscv64": "xmrig-linux-riscv64.tar.gz",
+      "windowsX86": "xmrig-windows-x86.zip",
+      "windowsX64": "xmrig-windows-x64.zip",
+      "macosX64": "xmrig-macos-x64.tar.gz",
+      "macosArmv8": "xmrig-macos-armv8.tar.gz",
+      "androidX86": "xmrig-android-x86.tar.gz",
+      "androidX64": "xmrig-android-x64.tar.gz",
+      "androidArmv7": "xmrig-android-armv7.tar.gz",
+      "androidArmv8": "xmrig-android-armv8.tar.gz"
+    }
   }
 }
