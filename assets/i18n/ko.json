@@ -97,6 +97,12 @@
     "content.download.block3": "지갑 및 노드",
     "content.download.block10": "XMRig 마이너",
     "content.download.block27": "Tor 전용 노드 실행",
-    "content.download.block30": "릴리스 소스"
+    "content.download.block30": "릴리스 소스",
+    "content.download.block2": "현재 TKMChain 릴리스: **{{TKM_VERSION}}**. 운영체제에 맞는 빌드를 선택하고 노드나 채굴기를 실행하기 전에 체크섬을 확인하세요. 메인넷에 연결할 때는 Tor 전용 시작 지침을 사용하세요.",
+    "content.download.block20": "XMRig 채굴기",
+    "content.download.block37": "Tor 전용 노드 실행",
+    "content.download.block40": "릴리스 소스",
+    "content.download.block42": "Debian 및 Ubuntu (APT)",
+    "content.download.block56": "Tor를 통해 시작"
   }
 }

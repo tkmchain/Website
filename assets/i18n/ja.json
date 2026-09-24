@@ -97,6 +97,12 @@
     "content.download.block3": "ウォレットとノード",
     "content.download.block10": "XMRig マイナー",
     "content.download.block27": "Tor 専用ノードを実行",
-    "content.download.block30": "リリースソース"
+    "content.download.block30": "リリースソース",
+    "content.download.block2": "現在の TKMChain リリース: **{{TKM_VERSION}}**。OS に合うビルドを選び、ノードやマイナーを起動する前にチェックサムを確認してください。メインネット接続では Tor 専用の起動手順を使用します。",
+    "content.download.block20": "XMRig マイナー",
+    "content.download.block37": "Tor 専用ノードを実行",
+    "content.download.block40": "リリースソース",
+    "content.download.block42": "Debian と Ubuntu (APT)",
+    "content.download.block56": "Tor 経由で起動"
   }
 }

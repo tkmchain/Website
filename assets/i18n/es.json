@@ -97,6 +97,12 @@
     "content.download.block3": "Cartera y nodo",
     "content.download.block10": "Minero XMRig",
     "content.download.block27": "Ejecuta un nodo solo con Tor",
-    "content.download.block30": "Código fuente del lanzamiento"
+    "content.download.block30": "Código fuente del lanzamiento",
+    "content.download.block2": "Versión actual de TKMChain: **{{TKM_VERSION}}**. Elige una compilación para tu sistema operativo y verifica las sumas de comprobación antes de ejecutar un nodo o minero. Usa las instrucciones de inicio solo con Tor al conectarte a la red principal.",
+    "content.download.block20": "Minero XMRig",
+    "content.download.block37": "Ejecutar un nodo solo con Tor",
+    "content.download.block40": "Código fuente de la versión",
+    "content.download.block42": "Debian y Ubuntu (APT)",
+    "content.download.block56": "Iniciar mediante Tor"
   }
 }

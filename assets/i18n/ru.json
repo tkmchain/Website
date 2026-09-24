@@ -97,6 +97,12 @@
     "content.download.block3": "Кошелёк и узел",
     "content.download.block10": "Майнер XMRig",
     "content.download.block27": "Запуск узла только через Tor",
-    "content.download.block30": "Исходный код релиза"
+    "content.download.block30": "Исходный код релиза",
+    "content.download.block2": "Текущий релиз TKMChain: **{{TKM_VERSION}}**. Выберите сборку для своей ОС и проверьте контрольные суммы перед запуском узла или майнера. Для mainnet используйте инструкции запуска только через Tor.",
+    "content.download.block20": "Майнер XMRig",
+    "content.download.block37": "Запуск узла только через Tor",
+    "content.download.block40": "Исходный код релиза",
+    "content.download.block42": "Debian и Ubuntu (APT)",
+    "content.download.block56": "Запуск через Tor"
   }
 }

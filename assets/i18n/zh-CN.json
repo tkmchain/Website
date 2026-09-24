@@ -159,6 +159,12 @@
     "content.download.block3": "钱包与节点",
     "content.download.block10": "XMRig 矿工",
     "content.download.block27": "运行仅 Tor 节点",
-    "content.download.block30": "发布源代码"
+    "content.download.block30": "发布源代码",
+    "content.download.block2": "当前 TKMChain 版本：**{{TKM_VERSION}}**。选择适合操作系统的构建，并在运行节点或矿工前验证发行版校验和。连接主网时，请使用仅 Tor 的启动说明。",
+    "content.download.block20": "XMRig 矿工",
+    "content.download.block37": "运行仅 Tor 节点",
+    "content.download.block40": "发布源代码",
+    "content.download.block42": "Debian 和 Ubuntu（APT）",
+    "content.download.block56": "通过 Tor 启动"
   }
 }
