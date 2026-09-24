@@ -19,6 +19,26 @@ Current TKMChain release: **{{TKM_VERSION}}**. Choose a build for your operating
 
 [View all TKMChain {{TKM_VERSION}} release contents]({{TKM_RELEASE_URL}})
 
+## Fast bootstrap
+
+Download the official current-chain archive through Tor, then let `gtkm` verify
+and import it in batches. The archive is retained under the node's
+`~/.tkmchain/gtkm/bootstrap/` directory on Linux (and the equivalent Tkmchain
+directory on Windows):
+
+[Download the official TKMChain bootstrap archive]({{TKM_BOOTSTRAP_URL}})
+
+```bash
+./build/bin/gtkm bootstrap \
+  --url '{{TKM_BOOTSTRAP_URL}}' \
+  --sha256 '{{TKM_BOOTSTRAP_SHA256}}' \
+  --datadir "$HOME/.tkmchain"
+```
+
+Stop any running node before importing. The published SHA-256 is
+`{{TKM_BOOTSTRAP_SHA256}}`. For a custom mirror, replace `--url` and provide its
+matching `--sha256` value.
+
 ## XMRig miner
 
 Current TKM-compatible XMRig release: **{{XMRIG_VERSION}}**. These packages include the TKM pool configuration and are built for the supported CPU targets.

@@ -80,6 +80,8 @@ function interpolate(markdown, _assetPrefix) {
   const values = {
     '{{TKM_VERSION}}': tkm.version,
     '{{TKM_RELEASE_URL}}': tkm.releaseUrl,
+    '{{TKM_BOOTSTRAP_URL}}': tkm.bootstrapUrl,
+    '{{TKM_BOOTSTRAP_SHA256}}': tkm.bootstrapSha256,
     '{{XMRIG_VERSION}}': xmrig.version,
     '{{XMRIG_RELEASE_URL}}': xmrig.releaseUrl,
     '{{TKM_LINUX_AMD64}}': releaseAsset(tkm, 'linuxAmd64'),
