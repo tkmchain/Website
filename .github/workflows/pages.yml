@@ -37,6 +37,7 @@ jobs:
         run: |
           for page in index smart-accounts privacy network communications developers governance download; do
             test -f "dist/$page.html"
+          test -f dist/tkm-mainnet.rlp.gz
           done
           for language in en zh ru ja ko es ar fr de pt hi id tr it vi th uk pl nl sw; do
             test -f "dist/$language/index.html"

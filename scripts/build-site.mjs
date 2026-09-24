@@ -247,6 +247,7 @@ await fs.rm(dist, { recursive: true, force: true });
 await fs.mkdir(dist, { recursive: true });
 await fs.cp(path.join(root, 'assets'), path.join(dist, 'assets'), { recursive: true });
 for (const file of ['CNAME', '.nojekyll']) await fs.copyFile(path.join(root, file), path.join(dist, file));
+await fs.copyFile(path.join(root, 'tkm-mainnet.rlp.gz'), path.join(dist, 'tkm-mainnet.rlp.gz'));
 
 const catalogCache = new Map();
 for (const language of languages) {
