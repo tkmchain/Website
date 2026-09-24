@@ -9,7 +9,7 @@ kind: network
 
 TKMChain nodes use Tor onion services for peer discovery and transport. Onion-only mode keeps public IP addresses out of peer advertisements and rejects clearnet bootnodes.
 
-[Read the Tor installation guide](https://github.com/tkmchain/go-tkmchain/blob/artartical/docs/TOR_INSTALLATION.md) · [Read privacy mode](https://github.com/tkmchain/go-tkmchain/blob/artartical/docs/PRIVACY_MODE.md)
+[Read the Tor installation guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/TOR_INSTALLATION.md) · [Read privacy mode](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/PRIVACY_MODE.md)
 
 ## How a node connects
 

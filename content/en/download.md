@@ -65,8 +65,75 @@ The miner connects to the configured TKM pool through Tor. Keep the supplied `co
 
 Install Tor for your operating system, start the service, and use an onion hostname in `--bootnodes`. Keep HTTP and WebSocket RPC bound to loopback unless a separate authenticated reverse proxy is required.
 
-[Read the Tor installation guide](https://github.com/tkmchain/go-tkmchain/blob/artartical/docs/TOR_INSTALLATION.md) · [Read the node privacy guide](https://github.com/tkmchain/go-tkmchain/blob/artartical/docs/PRIVACY_MODE.md)
+[Read the Tor installation guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/TOR_INSTALLATION.md) · [Read the node privacy guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/PRIVACY_MODE.md)
 
 ## Release source
 
-All release builds are produced by GitHub Actions from signed version tags. Review the [release workflow](https://github.com/tkmchain/go-tkmchain/blob/artartical/.github/workflows/release.yml) and [source repository](https://github.com/tkmchain/go-tkmchain).
+All release builds are produced by GitHub Actions from signed version tags. Review the [release workflow](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/.github/workflows/release.yml) and [source repository](https://github.com/tkmchain/go-tkmchain).
+
+## Debian and Ubuntu (APT)
+
+The `tkmchain` Debian package installs `gtkm`, the `tkmchain` command
+alias, and the Shield3 payout prover when it is included in the release. It
+supports `amd64`, `arm64`, and `armhf`.
+
+Direct package downloads:
+
+- [APT package for Linux x86-64 ({{TKM_VERSION}})]({{TKM_DEB_AMD64}})
+- [APT package for Linux ARM64 ({{TKM_VERSION}})]({{TKM_DEB_ARM64}})
+- [APT package for Linux ARMv7 ({{TKM_VERSION}})]({{TKM_DEB_ARMHF}})
+
+Install the package that matches `dpkg --print-architecture`:
+
+```bash
+set -eu
+
+version="${TKM_VERSION:-{{TKM_VERSION}}}"
+arch="$(dpkg --print-architecture)"
+case "$arch" in amd64|arm64|armhf) ;; *) echo "Unsupported architecture: $arch" >&2; exit 1 ;; esac
+package="tkmchain_${version#v}_${arch}.deb"
+
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+curl --fail --location --proto '=https' --tlsv1.2 \
+  --output "/tmp/$package" \
+  "https://github.com/tkmchain/go-tkmchain/releases/download/${version}/${package}"
+sudo apt-get install "/tmp/$package"
+```
+
+For production deployments, download `SHA256SUMS` from the
+[{{TKM_VERSION}} release]({{TKM_RELEASE_URL}}) and verify the selected
+package before installing it. The package does not start a node or install
+Tor automatically.
+
+### Start through Tor
+
+Install and start Tor before launching the node:
+
+```bash
+sudo apt-get install -y tor
+sudo systemctl enable --now tor
+systemctl is-active tor
+```
+
+Run `gtkm` with onion-only P2P, an onion hostname, and an onion bootnode.
+Keep HTTP and WebSocket RPC on loopback:
+
+```bash
+gtkm \
+  --port 3000 \
+  --privacy.onion-only \
+  --p2p.tor-socks5=socks5://127.0.0.1:9050 \
+  --p2p.onion-hostname='<this-node>.onion' \
+  --bootnodes='enode://<peer-key>@<peer>.onion:3000?discport=0' \
+  --http --http.addr=127.0.0.1 --http.port=8545 \
+  --ws --ws.addr=127.0.0.1 --ws.port=8546
+```
+
+Do not use `--nat=extip:<ip>`, public RPC bindings, wildcard origins, or
+`127.0.0.1:9050` as a peer address. Port `9050` is the local Tor SOCKS
+proxy; TKMChain peers use the onion service's P2P port, normally `3000`.
+
+See the full [APT installation guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/INSTALL_APT.md),
+[Tor installation guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/TOR_INSTALLATION.md),
+and [privacy deployment guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/PRIVACY_MODE.md).

@@ -77,6 +77,7 @@ function interpolate(markdown, _assetPrefix) {
   };
   const tkm = config.tkmchain;
   const xmrig = config.xmrig;
+  const debVersion = tkm.version.replace(/^v/, "");
   const values = {
     '{{TKM_VERSION}}': tkm.version,
     '{{TKM_RELEASE_URL}}': tkm.releaseUrl,
@@ -89,6 +90,9 @@ function interpolate(markdown, _assetPrefix) {
     '{{TKM_WINDOWS}}': releaseAsset(tkm, 'windows'),
     '{{TKM_WINDOWS_WALLET}}': releaseAsset(tkm, 'windowsWallet'),
     '{{TKM_ANDROID}}': releaseAsset(tkm, 'android'),
+    "{{TKM_DEB_AMD64}}": tkm.downloadBase + "/" + tkm.version + "/tkmchain_" + debVersion + "_amd64.deb",
+    "{{TKM_DEB_ARM64}}": tkm.downloadBase + "/" + tkm.version + "/tkmchain_" + debVersion + "_arm64.deb",
+    "{{TKM_DEB_ARMHF}}": tkm.downloadBase + "/" + tkm.version + "/tkmchain_" + debVersion + "_armhf.deb",
     '{{XMRIG_LINUX_X86}}': releaseAsset(xmrig, 'linuxX86'),
     '{{XMRIG_LINUX_X64}}': releaseAsset(xmrig, 'linuxX64'),
     '{{XMRIG_LINUX_ARMV7}}': releaseAsset(xmrig, 'linuxArmv7'),

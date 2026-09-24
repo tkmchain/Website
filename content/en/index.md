@@ -38,7 +38,7 @@ Onion-only mode routes configured peer traffic through Tor, disables clearnet di
 
 Tor reduces direct network-origin exposure; it does not erase timing or endpoint metadata. Local wallet and prover calls stay on loopback so private keys and proof material do not travel over the network.
 
-[Explore the Tor network](network.html) · [Read privacy mode](https://github.com/tkmchain/go-tkmchain/blob/artartical/docs/PRIVACY_MODE.md)
+[Explore the Tor network](network.html) · [Read privacy mode](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/PRIVACY_MODE.md)
 
 ## Money, identity, and messages
 
@@ -48,7 +48,7 @@ TKM Phone records number ownership, device authorization, encrypted messages, an
 
 The chain can verify that an action was authorized and paid without receiving the message body, private key, or audio. Your endpoint still matters: protect your device, browser, recovery material, and recipient access.
 
-[Explore Phone and EmailVM](communications.html) · [Read phone documentation](https://github.com/tkmchain/go-tkmchain/blob/artartical/docs/tkmphone.md)
+[Explore Phone and EmailVM](communications.html) · [Read phone documentation](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/tkmphone.md)
 
 ## Build on familiar EVM rails
 

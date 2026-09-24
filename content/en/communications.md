@@ -9,7 +9,7 @@ kind: communications
 
 TKM Phone and EmailVM extend TKMChain with private communication services. The chain records ownership and authorization proofs while message bodies, calls, and mailbox content remain encrypted for their intended keys.
 
-[Open EmailVM](https://wallet.tkmchain.site/mail/) · [Read Phone documentation](https://github.com/tkmchain/go-tkmchain/blob/artartical/docs/tkmphone.md)
+[Open EmailVM](https://wallet.tkmchain.site/mail/) · [Read Phone documentation](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/tkmphone.md)
 
 ## TKM Phone
 

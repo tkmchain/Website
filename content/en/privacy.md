@@ -9,7 +9,7 @@ kind: privacy
 
 Shield3 is TKMChain's private transaction system. It lets consensus verify authorization, value conservation, ownership, and replay protection while payment details stay inside encrypted transaction records.
 
-[Open the wallet](https://wallet.tkmchain.site) · [Read the protocol specification](https://github.com/tkmchain/go-tkmchain/blob/artartical/docs/SHIELD3_ANTARTICAL.md)
+[Open the wallet](https://wallet.tkmchain.site) · [Read the protocol specification](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/SHIELD3_ANTARTICAL.md)
 
 ## What observers can see
 
