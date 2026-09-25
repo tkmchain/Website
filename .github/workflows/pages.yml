@@ -45,14 +45,16 @@ jobs:
           done
           node --check scripts/build-site.mjs
           node --check assets/translator.js
-          node -e "const c=require('./site.config.json'); if (c.tkmchain.version !== 'v1.21.24') throw new Error('Unexpected TKMChain release version'); if (!c.xmrig.version) throw new Error('Missing XMRig release version');"
+          node -e "const c=require('./site.config.json'); if (!/^v[0-9]+\\.[0-9]+\\.[0-9]+$/.test(c.tkmchain.version)) throw new Error('Invalid TKMChain release version'); if (!c.xmrig.version) throw new Error('Missing XMRig release version');"
+          TKM_VERSION=$(node -p "require('./site.config.json').tkmchain.version")
+          XMRIG_VERSION=$(node -p "require('./site.config.json').xmrig.version")
           grep -q 'Shield3 让网络' dist/zh/index.html
           grep -q 'TKM Phone 和 EmailVM' dist/zh/index.html
-          grep -q 'v1.21.24' dist/zh/download.html
-          grep -q 'v6.26.0-tkm.8' dist/zh/download.html
+          grep -q "$TKM_VERSION" dist/zh/download.html
+          grep -q "$XMRIG_VERSION" dist/zh/download.html
           ! grep -q 'href="download/' dist/download.html
-          grep -q 'releases/download/v1.21.24' dist/download.html
-          grep -q 'releases/download/v6.26.0-tkm.8' dist/download.html
+          grep -q "releases/download/$TKM_VERSION" dist/download.html
+          grep -q "releases/download/$XMRIG_VERSION" dist/download.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

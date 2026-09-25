@@ -1,7 +1,7 @@
 {
   "tkmchain": {
-    "version": "v1.21.31",
-    "releaseUrl": "https://github.com/tkmchain/go-tkmchain/releases/tag/v1.21.31",
+    "version": "v1.21.35",
+    "releaseUrl": "https://github.com/tkmchain/go-tkmchain/releases/tag/v1.21.35",
     "downloadBase": "https://github.com/tkmchain/go-tkmchain/releases/download",
     "bootstrapUrl": "https://tkmchain.site/tkm-mainnet.rlp.gz",
     "bootstrapSha256": "5ab874b65f31d972b6e70ac2dd4cc4c2ad4bd4e5a4814b4a183c8632cab685c1",
