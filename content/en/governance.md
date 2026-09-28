@@ -48,10 +48,14 @@ rotation schedule.
 
 The mainnet checkpoint boundary through block 41913 is permanent. Nodes reject a history that rolls back below that boundary or presents a mismatched checkpoint hash. This protects recovery, synchronization, and release builds from accepting an incompatible chain history.
 
-## Append-only block-hash anchors
+## Consensus block-hash anchors
 
-`TKMBlockHashAnchors` is an optional contract for operators that need an
-event-indexed record of canonical block hashes. Its owner can call
+`TKMBlockHashAnchors` is the operator-facing event mirror. The mandatory
+consensus rule is implemented in the RandomX header validator: every
+Antartical block must carry a fixed block-hash anchor suffix. Nodes reject a
+missing, malformed, wrong-parent, wrong-height, or incorrectly chained anchor
+during mining, header sync, block import, and reorganization checks. The
+contract remains useful for an event-indexed record; its owner can call
 `appendVerified(height, expectedHash)`, `appendCanonical(height)`,
 `appendParent()`, or `appendVerifiedRange(...)`. Before each value is stored,
 the contract compares it with the EVM `BLOCKHASH` result. Anchors are
@@ -65,11 +69,10 @@ All append methods activate at Antartical: mainnet chain 8979 uses 1 October
 Unknown chain IDs remain disabled.
 
 The EVM can only verify the previous 256 blocks. The contract therefore rejects
-older hashes instead of trusting an owner-supplied historical list. To anchor
-from block 1, deploy at genesis and append continuously, or add a consensus
-historical-hash oracle with a verified header proof. The contract detects a
-conflicting canonical hash; it does not itself prevent a reorganization, so
-nodes must continue enforcing TKMChain checkpoints and finality rules.
+older hashes instead of trusting an owner-supplied historical list. The header
+commitment is the consensus source for the complete post-fork sequence; the
+contract is an auditable mirror. Proof-of-work still requires checkpoints or a
+finality rule for economic finality against a fully recomputed competing chain.
 
 ## Antartical activation
 
