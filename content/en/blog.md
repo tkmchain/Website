@@ -30,7 +30,32 @@ Try the builder from a local node:
 curl -s http://127.0.0.1:8545 -H 'content-type: application/json' --data '{"jsonrpc":"2.0","id":1,"method":"tkmasset_buildManifest","params":[{"chainId":"0x2313","kind":"fungible","decimals":18,"flags":9,"policyHash":"0x0000000000000000000000000000000000000000000000000000000000000000","name":"TKM Dollar","symbol":"TKMD","metadataURI":"ipfs://tkm/asset.json"}]}'
 ```
 
-The [TKM EVM profile guide](evm.html) has the classifier response, Solidity helper, deployment checklist, security invariants, and a clear list of future fork-gated work. “100% unique” is not a useful technical promise while retaining EVM compatibility; the profile makes the TKM-native layers explicit and verifiable instead.
+The [TKM EVM profile guide](evm.html) has the classifier response, Solidity helper, deployment checklist, and security invariants. “100% unique” is not a useful technical promise while retaining EVM compatibility; the profile makes the TKM-native layers explicit and verifiable instead.
+
+### Antartical execution profile
+
+The Egypt rehearsal now covers the complete profile primitives in
+`consensus/antartical/profile.go`:
+
+1. Chain- and contract-bound typed transactions, with ML-DSA-87 sender
+   verification preserving the post-quantum account policy.
+2. Policy commitments bound to manifests, followed by enforced mint, burn,
+   pause, royalty, and shielded operations.
+3. A canonical asset-registry root, carried in versioned header metadata.
+4. Shield3/Shield4 asset and token-ID nullifier bindings.
+5. Independent EVM, TVM, proof, and blob gas dimensions with overflow checks.
+6. Deterministic parallel waves and receipt-index conflict metadata.
+7. Sorted stateless witness commitments and a finality-backed light-client
+   verification path.
+8. Alternate EVM admission only after differential conformance vectors match
+   the canonical interpreter.
+
+Run the check from the Go repository with `go run ./cmd/egypt-contract-test`.
+It uses an in-memory chain-8980 state, never touches the production data
+directory, and prints the commitment values and checks as JSON. The old
+receipt RLP and historical witness commitment remain available; changing those
+wire encodings requires a coordinated network upgrade rather than a local
+configuration switch.
 
 The Egypt rehearsal now deploys **EUSD**, a six-decimal `TKM-20` fixture. It mints 1,000 EUSD, transfers 250 EUSD, verifies balances and total supply, parses the runtime manifest, and confirms that the direct asset ID matches the Antartical asset-ID precompile. Egypt node data is kept in `~/.tkmchain-egypt` by the checked-in launcher so this test cannot reuse the production database.
 

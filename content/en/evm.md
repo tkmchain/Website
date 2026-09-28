@@ -29,6 +29,33 @@ These layers do not silently change an ordinary ERC contract. A contract becomes
 
 Capability flags tell a wallet what to review before signing: mintable, burnable, pausable, permit, batch transfer, shielded balances, royalties, soulbound, and upgradeable. Flags are declarations; contract authorization and the policy hash remain authoritative.
 
+## Antartical execution profile
+
+The Antartical profile makes these declarations executable and binds them to
+the network:
+
+- **Typed transaction domains:** signatures commit to chain ID, receiving
+  contract, operation type, and payload. ML-DSA-87 public keys are checked
+  against the post-quantum sender address.
+- **Native token policy:** a canonical policy commitment binds the manifest's
+  flags and policy hash. The state machine enforces mint, burn, pause,
+  unpause, maximum supply, royalty, and shielded capability rules.
+- **Asset registry root:** sorted asset records (asset ID, manifest hash, and
+  runtime hash) produce a deterministic registry commitment carried in a
+  versioned header-extra suffix for stateless clients.
+- **Shielded assets:** Shield3 and Shield4 nullifier bindings include the
+  chain, asset ID, token ID, and nullifier, preventing cross-token proof reuse.
+- **Four gas dimensions:** EVM, TVM, proof verification, and blob work are
+  metered independently with overflow rejection.
+- **Parallel execution transcript:** deterministic access-set waves are
+  committed to receipt-index metadata. Legacy receipt RLP remains unchanged
+  until a coordinated receipt-format upgrade.
+- **Stateless light clients:** canonical sorted witness commitments can be
+  checked together with a quorum finality certificate without a full state
+  database.
+- **Alternate EVMs:** Revm, evmone, or another backend must pass differential
+  vectors against the canonical interpreter before registration.
+
 ## Egypt EUSD test token
 
 The repository includes [`contracts/egypt/EUSD.sol`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/contracts/egypt/EUSD.sol), a six-decimal issuer-minted `TKM-20` test token. The Egypt rehearsal uses chain ID 8980, mints 1,000 EUSD, transfers 250 EUSD, verifies the 750/250 balances and unchanged supply, parses the runtime trailer, and checks that the direct asset ID equals the Antartical-gated `0x...f3` precompile result.
@@ -116,9 +143,5 @@ The helper is in [`contracts/tkm/TKMAsset.sol`](https://github.com/tkmchain/go-t
 5. Query `tkmasset_getAsset` at the deployment block and current head.
 6. Cache the chain ID, contract, kind, manifest hash, and runtime code hash together.
 7. Require the sender and recipient's stamped status for private or policy-gated transfers.
-
-## What is next
-
-The next TKM-specific execution layers are separately specified work: typed TKM transaction domains, policy enforcement for declared capabilities, asset registry commitments for stateless clients, native Shield3/Shield4 token operations, multidimensional gas, deterministic parallel execution, Verkle witness commitments, and post-quantum account abstraction. Each needs an implementation, differential tests, replay protection, deterministic gas, and an explicit fork gate before it can become consensus.
 
 Read the full implementation reference in [`TKM_EVM_UNIQUENESS.md`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/TKM_EVM_UNIQUENESS.md).
