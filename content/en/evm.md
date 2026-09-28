@@ -29,6 +29,28 @@ These layers do not silently change an ordinary ERC contract. A contract becomes
 
 Capability flags tell a wallet what to review before signing: mintable, burnable, pausable, permit, batch transfer, shielded balances, royalties, soulbound, and upgradeable. Flags are declarations; contract authorization and the policy hash remain authoritative.
 
+## Egypt EUSD test token
+
+The repository includes [`contracts/egypt/EUSD.sol`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/contracts/egypt/EUSD.sol), a six-decimal issuer-minted `TKM-20` test token. The Egypt rehearsal uses chain ID 8980, mints 1,000 EUSD, transfers 250 EUSD, verifies the 750/250 balances and unchanged supply, parses the runtime trailer, and checks that the direct asset ID equals the Antartical-gated `0x...f3` precompile result.
+
+Run the deterministic in-memory rehearsal from the repository root:
+
+```bash
+go run ./cmd/egypt-contract-test
+```
+
+For a daemon-backed Egypt node, keep its database separate from production:
+
+```bash
+./scripts/run-egypt.sh --port 3001 \
+  --http --http.addr 127.0.0.1 --http.port 8645 \
+  --http.api eth,net,web3,tkmasset,tkmprivacy,randomx \
+  --http.vhosts localhost
+```
+
+The launcher defaults to `~/.tkmchain-egypt` and refuses to run with the
+production `~/.tkmchain` path.
+
 ## Build the manifest
 
 Add `tkmasset` to the node's `--http.api` list, then ask the node for canonical bytes and a runtime trailer. `0x2313` is TKM mainnet (8979); Egypt is `0x2314` (8980).

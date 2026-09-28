@@ -32,6 +32,8 @@ curl -s http://127.0.0.1:8545 -H 'content-type: application/json' --data '{"json
 
 The [TKM EVM profile guide](evm.html) has the classifier response, Solidity helper, deployment checklist, security invariants, and a clear list of future fork-gated work. “100% unique” is not a useful technical promise while retaining EVM compatibility; the profile makes the TKM-native layers explicit and verifiable instead.
 
+The Egypt rehearsal now deploys **EUSD**, a six-decimal `TKM-20` fixture. It mints 1,000 EUSD, transfers 250 EUSD, verifies balances and total supply, parses the runtime manifest, and confirms that the direct asset ID matches the Antartical asset-ID precompile. Egypt node data is kept in `~/.tkmchain-egypt` by the checked-in launcher so this test cannot reuse the production database.
+
 ## Stamp an address before using it
 
 1. Create or import an ML-DSA-87 account in the wallet. Legacy ECDSA accounts must migrate before they can use post-quantum private flows.
