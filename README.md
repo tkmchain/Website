@@ -12,6 +12,7 @@ The website is authored in Markdown and published as generated HTML on GitHub Pa
 - `content/en/communications.md` — Phone and EmailVM
 - `content/en/developers.md` — developer tools
 - `content/en/governance.md` — governance and finality
+- `content/en/blog.md` — field notes and operational guides
 - `site.config.json` — current TKMChain and XMRig release versions and release URLs
 
 The download page uses direct assets from the configured GitHub releases. It does not proxy or duplicate release archives through GitHub Pages.
