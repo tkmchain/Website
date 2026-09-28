@@ -48,6 +48,25 @@ rotation schedule.
 
 The mainnet checkpoint boundary through block 41913 is permanent. Nodes reject a history that rolls back below that boundary or presents a mismatched checkpoint hash. This protects recovery, synchronization, and release builds from accepting an incompatible chain history.
 
+## Append-only block-hash anchors
+
+`TKMBlockHashAnchors` is an optional contract for operators that need an
+event-indexed record of canonical block hashes. Its owner can call
+`appendVerified(height, expectedHash)`, `appendCanonical(height)`,
+`appendParent()`, or `appendVerifiedRange(...)`. Before each value is stored,
+the contract compares it with the EVM `BLOCKHASH` result. Anchors are
+contiguous after the first entry, and there is no delete, overwrite, upgrade,
+or self-destruct path. A domain-separated rolling commitment covers the full
+sequence, while `BlockHashAnchored` events can be checked by explorers and
+independent nodes.
+
+The EVM can only verify the previous 256 blocks. The contract therefore rejects
+older hashes instead of trusting an owner-supplied historical list. To anchor
+from block 1, deploy at genesis and append continuously, or add a consensus
+historical-hash oracle with a verified header proof. The contract detects a
+conflicting canonical hash; it does not itself prevent a reorganization, so
+nodes must continue enforcing TKMChain checkpoints and finality rules.
+
 ## Antartical activation
 
 Hardfork rules are activated from the configured chain timestamp and height. Nodes validate the activation state before accepting Shield3, stamping, sponsorship, and post-quantum account features. A release must report the same chain configuration as its peers.
