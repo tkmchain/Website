@@ -55,7 +55,12 @@ consensus rule is implemented in the RandomX header validator: every
 Antartical block must carry a fixed block-hash anchor suffix. Nodes reject a
 missing, malformed, wrong-parent, wrong-height, or incorrectly chained anchor
 during mining, header sync, block import, and reorganization checks. The
-contract remains useful for an event-indexed record; its owner can call
+contract is also installed as a deterministic consensus predeployment at
+`0x0000000000000000000000000000000000008979` when Antartical state processing
+begins. Egypt performs that transition from genesis; mainnet performs it at
+activation. Miners and importers apply the same state transition, so no
+transparent deployment transaction is required and the privacy gate is never
+weakened. The contract remains useful for an event-indexed record; its owner can call
 `appendVerified(height, expectedHash)`, `appendCanonical(height)`,
 `appendParent()`, or `appendVerifiedRange(...)`. Before each value is stored,
 the contract compares it with the EVM `BLOCKHASH` result. Anchors are
