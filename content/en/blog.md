@@ -55,7 +55,9 @@ It uses an in-memory chain-8980 state, never touches the production data
 directory, and prints the commitment values and checks as JSON. The old
 receipt RLP and historical witness commitment remain available; changing those
 wire encodings requires a coordinated network upgrade rather than a local
-configuration switch.
+configuration switch. `params.Rules.TKMProfileVersion` keeps those legacy
+encodings at version `0` and selects the new metadata at version `1` when
+Antartical activates (Egypt uses version `1` from genesis).
 
 The Egypt rehearsal now deploys **EUSD**, a six-decimal `TKM-20` fixture. It mints 1,000 EUSD, transfers 250 EUSD, verifies balances and total supply, parses the runtime manifest, and confirms that the direct asset ID matches the Antartical asset-ID precompile. Egypt node data is kept in `~/.tkmchain-egypt` by the checked-in launcher so this test cannot reuse the production database.
 

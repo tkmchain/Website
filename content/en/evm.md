@@ -34,6 +34,11 @@ Capability flags tell a wallet what to review before signing: mintable, burnable
 The Antartical profile makes these declarations executable and binds them to
 the network:
 
+`params.Rules.TKMProfileVersion` is `0` before Antartical and `1` at or after
+the fork. Egypt uses version `1` from genesis. Versioned helpers reject new
+metadata before activation, while the historical receipt and witness
+encodings remain available for replay.
+
 - **Typed transaction domains:** signatures commit to chain ID, receiving
   contract, operation type, and payload. ML-DSA-87 public keys are checked
   against the post-quantum sender address.
