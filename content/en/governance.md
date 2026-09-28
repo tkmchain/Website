@@ -15,6 +15,35 @@ TKMChain governance is represented by explicit chain state, signed authorization
 
 The chain configuration identifies the Main King and any active Rotating King set. Rotations occur on a defined interval and are validated by consensus. These roles authorize protocol operations; they do not hold user spending keys or bypass Shield3 proof checks.
 
+### Register a Rotating King
+
+A funded ML-DSA-87 account can register itself from the interactive console
+wallet. Start a node and run:
+
+```text
+./gtkm wallet interactive
+```
+
+Choose **Kings**, then press `r`. Select the local account, review the active
+stake requirement and fee reserve, and type `REGISTER` to submit the local
+`rk_add` request. The wallet signs through the node's IPC endpoint; it does not
+send the account password or private key to the RPC server. Save the returned
+registration hash for cross-node verification.
+
+Use `s` to inspect one registration by local account number or address. The
+status view includes the chain-bound registration hash, locked amount, added
+height, unlock height, and whether the account is current or next. The Kings
+screen also lists registrations and recent rotation history automatically. The same information
+is available to operators through `rk_list`, `rk_status`, and
+`rk_getKingStats`.
+
+Before Antartical the legacy minimum stake is 50,000 TKM. At Antartical it is
+100,000 TKM, plus the existing 1-TKM registration fee reserve. Egypt (chain
+8980) runs the post-fork rule from genesis. A registration is an eligibility
+record checked by consensus; it does not debit an account outside a block. If
+the account later spends below the active requirement, it is pruned from the
+rotation schedule.
+
 ## Checkpoints and the permanent boundary
 
 The mainnet checkpoint boundary through block 41913 is permanent. Nodes reject a history that rolls back below that boundary or presents a mismatched checkpoint hash. This protects recovery, synchronization, and release builds from accepting an incompatible chain history.

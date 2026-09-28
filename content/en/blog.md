@@ -70,6 +70,35 @@ The Egypt rehearsal now deploys **EUSD**, a six-decimal `TKM-20` fixture. It min
 
 An address with no confirmed stamp cannot send a value transfer or a Shield3/Shield4 withdrawal after Antartical. A recipient must also be stamped. Stamps are immutable registrations; choose the label carefully.
 
+## Register a Rotating King
+
+Rotating Kings are funded accounts selected by the consensus rotation
+schedule. To register from a local node, run `./gtkm wallet interactive`,
+choose **Kings**, press `r`, select the account, review the requirement, and
+type `REGISTER`. The wallet calls `rk_add` over local IPC and displays a
+chain-bound registration hash after the request succeeds.
+
+Press `s` to inspect a registration by account number or address. The Kings
+screen automatically lists registrations and recent rotation history. The
+status view shows the stake, registration hash, added height, unlock height,
+and current/next role. The same state can be checked with `rk_status`,
+`rk_list`, and `rk_getKingStats`.
+
+The minimum is 50,000 TKM before Antartical and 100,000 TKM from Antartical
+activation, plus the 1-TKM registration fee reserve. Egypt uses the post-fork
+rule from genesis. Registration does not move funds outside a block; spending
+below the active requirement makes the account ineligible and consensus
+removes it from the rotation schedule.
+
+## Back up a post-quantum account
+
+When an ECDSA account is migrated in the console wallet, the new ML-DSA-87
+seed is shown only after the migration receipt is canonical. The wallet displays
+the exact seed as a standard English BIP39 recovery phrase of 24 words instead
+of raw hexadecimal. Write the words down in order and keep them separate from
+the account password. `ethkey inspect --private` uses the same representation,
+and `ethkey generate --pqseed` accepts the phrase when restoring a key.
+
 ## Transfer TKM privately
 
 1. Confirm that the sender and recipient both show a confirmed stamp.
