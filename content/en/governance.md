@@ -60,6 +60,10 @@ or self-destruct path. A domain-separated rolling commitment covers the full
 sequence, while `BlockHashAnchored` events can be checked by explorers and
 independent nodes.
 
+All append methods activate at Antartical: mainnet chain 8979 uses 1 October
+2026 00:00 UTC (`1790812800`), while Egypt chain 8980 is active from genesis.
+Unknown chain IDs remain disabled.
+
 The EVM can only verify the previous 256 blocks. The contract therefore rejects
 older hashes instead of trusting an owner-supplied historical list. To anchor
 from block 1, deploy at genesis and append continuously, or add a consensus
