@@ -18,6 +18,20 @@ This is the working guide for the network. It explains what is shipping, how to 
 - **Wallets and bootstrap:** the desktop, Android, console wallet, explorer, and XMRig releases use the configured release manifest. A bootstrap replaces local chain data only after the wallet confirms the download and asks you to restart.
 - **Stateless and execution work:** Verkle/stateless state transitions, deterministic gas checks, alternate EVM experiments, private TVM assets, and post-quantum account migration are developed behind explicit fork and test gates.
 
+## A TKM-native EVM profile
+
+TKM keeps the EVM execution and ABI surface so existing tools can be used, but it does not treat every ERC-shaped contract as a TKM asset. The new `TKMASSET` runtime trailer commits a contract to the chain ID, token kind, capabilities, policy hash, name, symbol, and metadata. Wallets and explorers can call `tkmasset_getAsset` to distinguish a verified `TKM-20`, `TKM-721`, or `TKM-6909` asset from an ordinary `ethereum-compatible` contract.
+
+The TKM asset ID is domain-separated and binds the contract address, so identical source code deployed at two addresses cannot share an identity. The Antartical-gated `0x...f3` precompile computes that ID without reading state. This is an identity and policy layer; it does not grant minting or upgrade authority, and capability flags must still be enforced by the contract.
+
+Try the builder from a local node:
+
+```text
+curl -s http://127.0.0.1:8545 -H 'content-type: application/json' --data '{"jsonrpc":"2.0","id":1,"method":"tkmasset_buildManifest","params":[{"chainId":"0x2313","kind":"fungible","decimals":18,"flags":9,"policyHash":"0x0000000000000000000000000000000000000000000000000000000000000000","name":"TKM Dollar","symbol":"TKMD","metadataURI":"ipfs://tkm/asset.json"}]}'
+```
+
+The [TKM EVM profile guide](evm.html) has the classifier response, Solidity helper, deployment checklist, security invariants, and a clear list of future fork-gated work. “100% unique” is not a useful technical promise while retaining EVM compatibility; the profile makes the TKM-native layers explicit and verifiable instead.
+
 ## Stamp an address before using it
 
 1. Create or import an ML-DSA-87 account in the wallet. Legacy ECDSA accounts must migrate before they can use post-quantum private flows.

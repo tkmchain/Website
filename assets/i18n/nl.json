@@ -14,7 +14,8 @@
     "language.label": "Taal",
     "footer.use": "Gebruiken",
     "footer.learn": "Meer informatie",
-    "footer.tagline": "Privé programmeerbaar geld, open infrastructuur en versleutelde communicatie."
+    "footer.tagline": "Privé programmeerbaar geld, open infrastructuur en versleutelde communicatie.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.communications.block1": "Communicatie met verifieerbaar eigendom",

@@ -14,7 +14,8 @@
     "language.label": "Langue",
     "footer.use": "Utiliser",
     "footer.learn": "En savoir plus",
-    "footer.tagline": "Monnaie programmable privée, infrastructure ouverte et communications chiffrées."
+    "footer.tagline": "Monnaie programmable privée, infrastructure ouverte et communications chiffrées.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.communications.block1": "Communications avec propriété vérifiable",

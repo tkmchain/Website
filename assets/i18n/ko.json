@@ -14,7 +14,8 @@
     "language.label": "언어",
     "footer.use": "사용",
     "footer.learn": "더 알아보기",
-    "footer.tagline": "비공개 프로그래밍 화폐, 개방형 인프라, 암호화 통신."
+    "footer.tagline": "비공개 프로그래밍 화폐, 개방형 인프라, 암호화 통신.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.index.block1": "비공개 프로그래밍화폐.",

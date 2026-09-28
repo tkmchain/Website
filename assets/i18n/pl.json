@@ -14,7 +14,8 @@
     "language.label": "Język",
     "footer.use": "Użyj",
     "footer.learn": "Dowiedz się więcej",
-    "footer.tagline": "Prywatne programowalne pieniądze, otwarta infrastruktura i szyfrowana komunikacja."
+    "footer.tagline": "Prywatne programowalne pieniądze, otwarta infrastruktura i szyfrowana komunikacja.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.communications.block1": "Komunikacja z weryfikowalną własnością",

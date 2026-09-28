@@ -14,7 +14,8 @@
     "language.label": "Sprache",
     "footer.use": "Verwenden",
     "footer.learn": "Mehr erfahren",
-    "footer.tagline": "Private programmierbare Währung, offene Infrastruktur und verschlüsselte Kommunikation."
+    "footer.tagline": "Private programmierbare Währung, offene Infrastruktur und verschlüsselte Kommunikation.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.communications.block1": "Kommunikation mit überprüfbarem Besitz",

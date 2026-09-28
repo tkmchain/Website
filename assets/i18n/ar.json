@@ -14,7 +14,8 @@
     "language.label": "اللغة",
     "footer.use": "استخدام",
     "footer.learn": "تعرّف أكثر",
-    "footer.tagline": "أموال خاصة قابلة للبرمجة، وبنية مفتوحة، واتصالات مشفرة."
+    "footer.tagline": "أموال خاصة قابلة للبرمجة، وبنية مفتوحة، واتصالات مشفرة.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.communications.block1": "اتصالات بملكية قابلة للتحقق",

@@ -14,7 +14,8 @@
     "language.label": "Lugha",
     "footer.use": "Tumia",
     "footer.learn": "Jifunze zaidi",
-    "footer.tagline": "Pesa za faragha zinazoweza kupangwa, miundombinu wazi na mawasiliano yaliyosimbwa."
+    "footer.tagline": "Pesa za faragha zinazoweza kupangwa, miundombinu wazi na mawasiliano yaliyosimbwa.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.communications.block1": "Mawasiliano yenye umiliki unaoweza kuthibitishwa",

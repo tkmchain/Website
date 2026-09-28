@@ -14,7 +14,8 @@
     "language.label": "Bahasa",
     "footer.use": "Gunakan",
     "footer.learn": "Pelajari",
-    "footer.tagline": "Uang terprogram privat, infrastruktur terbuka, dan komunikasi terenkripsi."
+    "footer.tagline": "Uang terprogram privat, infrastruktur terbuka, dan komunikasi terenkripsi.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.communications.block1": "Komunikasi dengan kepemilikan terverifikasi",

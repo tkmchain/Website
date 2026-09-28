@@ -14,7 +14,8 @@
     "language.label": "Ngôn ngữ",
     "footer.use": "Sử dụng",
     "footer.learn": "Tìm hiểu thêm",
-    "footer.tagline": "Tiền lập trình riêng tư, hạ tầng mở và liên lạc được mã hóa."
+    "footer.tagline": "Tiền lập trình riêng tư, hạ tầng mở và liên lạc được mã hóa.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.communications.block1": "Giao tiếp với quyền sở hữu có thể xác minh",

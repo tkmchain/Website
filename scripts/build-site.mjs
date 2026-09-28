@@ -217,6 +217,7 @@ function layout(front, content, { language, assetPrefix, siteRoute }) {
         <a href="${href('network')}" data-i18n="nav.network">Network</a>
         <a href="${href('communications')}" data-i18n="nav.communications">Communications</a>
         <a href="${href('developers')}" data-i18n="nav.developers">Developers</a>
+        <a href="${href('evm')}" data-i18n="nav.evm">EVM</a>
         <a href="${href('governance')}" data-i18n="nav.governance">Governance</a>
         <a href="${href('blog')}" data-i18n="nav.blog">Blog</a>
         <a href="${href('download')}" data-i18n="nav.downloads">Downloads</a>

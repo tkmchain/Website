@@ -14,7 +14,8 @@
     "language.label": "语言",
     "footer.use": "使用",
     "footer.learn": "了解更多",
-    "footer.tagline": "私密的可编程货币、开放基础设施和加密通信。"
+    "footer.tagline": "私密的可编程货币、开放基础设施和加密通信。",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.index.block1": "私密、可编程的货币。",

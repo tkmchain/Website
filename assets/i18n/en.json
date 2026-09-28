@@ -14,7 +14,8 @@
     "language.label": "Language",
     "footer.use": "Use",
     "footer.learn": "Learn",
-    "footer.tagline": "Private programmable money, open infrastructure, and encrypted communications."
+    "footer.tagline": "Private programmable money, open infrastructure, and encrypted communications.",
+    "nav.evm": "EVM"
   },
   "content": {}
 }

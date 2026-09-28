@@ -14,7 +14,8 @@
     "language.label": "Idioma",
     "footer.use": "Usar",
     "footer.learn": "Saiba mais",
-    "footer.tagline": "Dinheiro programável privado, infraestrutura aberta e comunicações criptografadas."
+    "footer.tagline": "Dinheiro programável privado, infraestrutura aberta e comunicações criptografadas.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.communications.block1": "Comunicações com propriedade verificável",

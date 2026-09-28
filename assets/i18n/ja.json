@@ -14,7 +14,8 @@
     "language.label": "言語",
     "footer.use": "使う",
     "footer.learn": "詳しく見る",
-    "footer.tagline": "プライベートなプログラム可能通貨、オープンな基盤、暗号化通信。"
+    "footer.tagline": "プライベートなプログラム可能通貨、オープンな基盤、暗号化通信。",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.index.block1": "プライベートでプログラム可能なお金。",

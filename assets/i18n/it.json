@@ -14,7 +14,8 @@
     "language.label": "Lingua",
     "footer.use": "Usa",
     "footer.learn": "Scopri di più",
-    "footer.tagline": "Denaro programmabile privato, infrastruttura aperta e comunicazioni cifrate."
+    "footer.tagline": "Denaro programmabile privato, infrastruttura aperta e comunicazioni cifrate.",
+    "nav.evm": "EVM"
   },
   "content": {
     "content.communications.block1": "Comunicazioni con proprietà verificabile",
