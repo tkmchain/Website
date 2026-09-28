@@ -33,6 +33,8 @@ After Antartical, a stamped account can submit a public address-vote envelope wi
 
 The voter can later submit `gtkm governance unvote --from <stamped-address> --address <target>` to remove its own vote. When the count drops below fifteen, consensus clears the suspension marker. Use `gtkm governance status --address <target>` or `tkmgov_getAddressVoteStatus` to inspect the canonical count. Reasons are carried by signed transactions so investigators can review them; a vote is an allegation, not a finding of guilt.
 
+Each node also maintains a block-derived audit projection at `~/.tkmchain/gtkm/governance/address-votes.json`. It records vote reasons, voters, target addresses, transaction hashes, and block references. The file is rebuilt from canonical blocks after restart or reorganization and cannot override consensus state; deleting it is safe.
+
 ## Operating a verifier
 
 Run a full node with the published chain configuration, keep the database backed up, and compare checkpoint and activation logs with another independent node. Governance data is useful only when its signatures, timestamps, and state transitions are verified locally.
