@@ -31,6 +31,8 @@ Sponsorship lets a registered operator pay execution fees for a bounded private 
 
 After Antartical, a stamped account can submit a public address-vote envelope with a bounded reason such as `fraud`. Each registered stamp owner gets one active vote per target, even when that owner controls multiple addresses. Fifteen distinct active stamp owners suspend the target from sending or spending. The target is not erased and its history is not rewritten.
 
+Every vote and unvote burns 50 TKM from the stamped voter. The envelope still carries zero transaction value and the burn is destroyed by consensus, so it is never credited to the target, a treasury, or another account. The voter must fund gas and this burn separately.
+
 The voter can later submit `gtkm governance unvote --from <stamped-address> --address <target>` to remove its own vote. When the count drops below fifteen, consensus clears the suspension marker. Use `gtkm governance status --address <target>` or `tkmgov_getAddressVoteStatus` to inspect the canonical count. Reasons are carried by signed transactions so investigators can review them; a vote is an allegation, not a finding of guilt.
 
 Each node also maintains a block-derived audit projection at `~/.tkmchain/gtkm/governance/address-votes.json`. It records vote reasons, voters, target addresses, transaction hashes, and block references. The file is rebuilt from canonical blocks after restart or reorganization and cannot override consensus state; deleting it is safe.

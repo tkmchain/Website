@@ -47,7 +47,7 @@ gtkm governance unvote --from 0xYOUR_STAMPED_ADDRESS --address 0xTARGET
 gtkm governance status --address 0xTARGET
 ```
 
-The command signs a post-quantum protocol transaction locally. The voter must have a confirmed stamp. Each stamp owner can cast one vote for a target, even if that owner controls several addresses. The reason is bounded and recorded in the signed transaction for public review. Fifteen distinct active stamp owners suspend the target from sending and spending. A voter can remove only its own vote; when the count falls below fifteen, the suspension marker clears. Existing canonical history is never rewritten.
+The command signs a post-quantum protocol transaction locally. The voter must have a confirmed stamp. Each stamp owner can cast one vote for a target, even if that owner controls several addresses. The reason is bounded and recorded in the signed transaction for public review. Fifteen distinct active stamp owners suspend the target from sending and spending. A voter can remove only its own vote; when the count falls below fifteen, the suspension marker clears. Every vote and unvote burns 50 TKM from the stamped voter; the transaction value remains zero and the amount is destroyed by consensus. The voter must fund gas and the burn separately. Existing canonical history is never rewritten.
 
 Investigators should publish evidence, allow the address owner to respond, and ask voters to unvote after a clean review. Operators can query `tkmgov_getAddressVoteStatus` to see the active count, threshold, and suspension marker at the canonical head.
 
