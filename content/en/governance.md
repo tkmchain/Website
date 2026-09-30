@@ -83,6 +83,30 @@ finality rule for economic finality against a fully recomputed competing chain.
 
 Hardfork rules are activated from the configured chain timestamp and height. Nodes validate the activation state before accepting Shield3, stamping, sponsorship, and post-quantum account features. A release must report the same chain configuration as its peers.
 
+## Validator registry and operator view
+
+Validator registration is a consensus transaction. The sender must be an
+ML-DSA-87 account and the transaction locks 500,000 TKM while burning the
+100 TKM registration fee. The record activates after 720 blocks, is selected
+deterministically from the parent hash and height, and earns the halving-aware
+70 TKM validator share. A validator can submit a signed exit; the bond becomes
+withdrawable only after the 21,600-block unbonding period. Conflicting signed
+attestations slash the remaining bond and jail the record.
+
+Explorers and operators should treat the node's `tkmprotocol` response as the
+source of truth. `tkmprotocol_antarticalStatus` reports the canonical head and
+activation state, while `tkmprotocol_antarticalFeatures` reports each feature's
+active and consensus-ready flags. A registry endpoint may be unavailable on an
+older node; in that case the explorer must show the registry as unavailable
+instead of displaying guessed validator addresses.
+
+The slot-level witness path is active for deterministic optimistic transfers:
+read slots are checked against their pre-state values before a write-set is
+committed, and the sorted slot sets are included in the versioned conflict
+transcript. Contract calls and creates stay serial until their dynamic witness
+coverage is complete. This boundary keeps a partially implemented execution
+engine from becoming an accidental consensus fork.
+
 ## Sponsorship
 
 Sponsorship lets a registered operator pay execution fees for a bounded private operation. The authorization commits to the chain, operator, nonce, gas, expiry, beneficiary, stamp, encrypted outputs, and proof. Operators can submit a payment but cannot alter its private recipients or open its notes.

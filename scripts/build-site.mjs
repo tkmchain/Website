@@ -41,7 +41,12 @@ const slugify = (value) => value.toLowerCase().replace(/<[^>]+>/g, '').trim()
 
 function inline(value) {
   let text = escapeHTML(value);
-  text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+  const codeSpans = [];
+  text = text.replace(/`([^`]+)`/g, (_m, code) => {
+    const token = `\u0000CODE${codeSpans.length}\u0000`;
+    codeSpans.push(`<code>${code}</code>`);
+    return token;
+  });
   const links = [];
   text = text.replace(/\[([^\]]+)\]\(([^\s)]+)(?:\s+"[^"]*")?\)/g, (_m, label, href) => {
     const safe = /^(?:javascript:|data:)/i.test(href) ? '#' : href;
@@ -53,7 +58,8 @@ function inline(value) {
   text = text.replace(/__([^_]+)__/g, '<strong>$1</strong>');
   text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
   text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
-  return text.replace(/\u0000LINK(\d+)\u0000/g, (_m, index) => links[Number(index)]);
+  text = text.replace(/\u0000LINK(\d+)\u0000/g, (_m, index) => links[Number(index)]);
+  return text.replace(/\u0000CODE(\d+)\u0000/g, (_m, index) => codeSpans[Number(index)]);
 }
 
 function parseDocument(raw) {

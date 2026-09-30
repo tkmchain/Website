@@ -24,6 +24,18 @@ TKMChain keeps familiar EVM tools while adding native APIs for Shield3, post-qua
 
 The daemon exposes standard `eth`, `net`, `web3`, and `admin` methods alongside TKM-specific namespaces for privacy, account registration, rotating kings, TVM, phone, governance, and RandomX status. Bind RPC to loopback and place authenticated access behind a private service when remote access is necessary.
 
+`tkmprotocol_antarticalStatus` and `tkmprotocol_antarticalFeatures` are
+read-only consensus views. They use the canonical chain head, so clients must
+not derive activation from local wall-clock time. The feature catalog includes
+validator registration and rewards, Shield3/Shield4, slot-level witnesses,
+multidimensional gas, finality certificates, and the four gated follow-ups:
+parallel contract execution, enforced Verkle stateless sync, bundled
+Revm/evmone adapters, and native byte-compatible EIP-4337/RIP-7560 execution.
+
+When a node provides a validator registry RPC, display its records only after
+checking the returned head number and chain ID. A missing registry method is a
+normal compatibility state, not evidence that a validator set is empty.
+
 ## Shield3 integration
 
 Use the wallet helpers to decode payment codes, build private batches, review relay offers, construct selective disclosures, and match an operator's exact signed bytes. Applications should never parse or manufacture private envelopes by hand.

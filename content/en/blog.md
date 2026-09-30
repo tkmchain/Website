@@ -61,6 +61,40 @@ Antartical activates (Egypt uses version `1` from genesis).
 
 The Egypt rehearsal now deploys **EUSD**, a six-decimal `TKM-20` fixture. It mints 1,000 EUSD, transfers 250 EUSD, verifies balances and total supply, parses the runtime manifest, and confirms that the direct asset ID matches the Antartical asset-ID precompile. Egypt node data is kept in `~/.tkmchain-egypt` by the checked-in launcher so this test cannot reuse the production database.
 
+### Validator operations and slot-level witnesses
+
+Antartical validators are registered by a consensus PQ envelope, not by an
+ordinary contract. A registration locks a **500,000 TKM bond**, burns the
+**100 TKM registration fee**, and enters a deterministic 720-block activation
+queue. Active records are sorted by address and selected from the parent hash
+and height; the selected validator receives the 70 TKM share of the 200 TKM
+block reward schedule. Exits, the 21,600-block unbonding period, equivocation
+slashing, and reward-marker checks are all state transitions, so a wallet or
+alternate EVM cannot bypass them.
+
+The optimistic execution path now records deterministic slot-level witnesses.
+For each speculative transaction the node captures the first pre-state value
+read for every storage slot and the final value written. Commit validation
+rechecks those reads against the canonical state before applying the writes and
+includes the sorted slot sets in the versioned conflict transcript. Simple
+code-free transfers can use this path; contract calls and creates remain on the
+serial path until their complete dynamic witness is admitted by consensus.
+
+The daemon exposes the same machine-readable feature catalog to operators:
+
+```sh
+curl -s http://127.0.0.1:8545 \
+  -H 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","id":1,"method":"tkmprotocol_antarticalFeatures","params":[]}'
+```
+
+The remaining four upgrades are deliberately gated: parallel contract
+execution, enforced stateless Verkle headers and sync, bundled Revm/evmone
+backends with differential vectors, and byte-compatible native EIP-4337/
+RIP-7560 execution. Their catalog entries and acceptance tests are visible,
+but nodes do not claim them as production consensus until the Egypt and
+multi-node rehearsals pass.
+
 ## Stamp an address before using it
 
 1. Create or import an ML-DSA-87 account in the wallet. Legacy ECDSA accounts must migrate before they can use post-quantum private flows.
