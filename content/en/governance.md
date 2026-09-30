@@ -87,11 +87,25 @@ Hardfork rules are activated from the configured chain timestamp and height. Nod
 
 Validator registration is a consensus transaction. The sender must be an
 ML-DSA-87 account and the transaction locks 500,000 TKM while burning the
-100 TKM registration fee. The record activates after 720 blocks, is selected
-deterministically from the parent hash and height, and earns the halving-aware
-70 TKM validator share. A validator can submit a signed exit; the bond becomes
-withdrawable only after the 21,600-block unbonding period. Conflicting signed
-attestations slash the remaining bond and jail the record.
+100 TKM registration fee. The account therefore needs 500,100 TKM plus its
+transaction fee reserve. The record activates only after a 720-block queue,
+is selected deterministically from the parent hash and height, and earns the
+halving-aware 70 TKM validator share. A validator can submit a signed exit;
+the bond becomes withdrawable only after the 21,600-block unbonding period.
+Conflicting signed attestations burn the remaining bond and jail the record.
+
+The complete operator procedure, envelope fields, reward table, exit and
+slashing rules are in [Validator registration](validators.html). The protocol
+payloads are `TKMVALREG1` (registration), `TKMVALEXIT1` (exit), `TKMVALWD1`
+(bond withdrawal), and `TKMVSLASH1` (equivocation evidence). A registration is
+a `PQTkmTxType` to the reserved Shielded Pool address with exactly the bond as
+its value; it is not an ordinary EVM call.
+
+The initial Antartical reward schedule totals 200 TKM per block: 90 TKM to the
+RandomX miner, 70 TKM to the selected validator, 35 TKM to the Rotating King,
+and 5 TKM to the Main King. The existing halving interval is applied to all
+four shares together. Reward markers are validated against the selected record
+and block height, so a forged recipient or amount makes the block invalid.
 
 Explorers and operators should treat the node's `tkmprotocol` response as the
 source of truth. `tkmprotocol_antarticalStatus` reports the canonical head and

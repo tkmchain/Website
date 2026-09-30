@@ -1,7 +1,7 @@
 ---
 slug: index
 title: TKMChain — Private programmable money
-description: TKMChain is a privacy-focused EVM blockchain with Shield3 private transactions, Tor networking, post-quantum accounts, encrypted communications, and RandomX mining.
+description: TKMChain is a privacy-focused EVM blockchain with Shield3 private transactions, Tor networking, post-quantum accounts, encrypted communications, RandomX mining, and Antartical validators.
 kind: home
 ---
 
@@ -17,6 +17,7 @@ TKMChain is an EVM-compatible network for people who want useful digital money w
 - **Tor:** onion-only peer networking
 - **Post-quantum accounts:** ML-DSA-87 signatures
 - **Runtime:** EVM, TVM, and RandomX proof of work
+- **Antartical validators:** 500,000 TKM bonded, deterministic slot selection
 - **Communications:** TKM Phone and EmailVM
 - **Network anchor:** finality through block 41913
 
@@ -38,7 +39,7 @@ Onion-only mode routes configured peer traffic through Tor, disables clearnet di
 
 Tor reduces direct network-origin exposure; it does not erase timing or endpoint metadata. Local wallet and prover calls stay on loopback so private keys and proof material do not travel over the network.
 
-[Explore the Tor network](network.html) · [Read privacy mode](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/PRIVACY_MODE.md)
+[Explore the Tor network](network.html) · [Read privacy mode](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/docs/PRIVACY_MODE.md)
 
 ## Money, identity, and messages
 
@@ -48,7 +49,7 @@ TKM Phone records number ownership, device authorization, encrypted messages, an
 
 The chain can verify that an action was authorized and paid without receiving the message body, private key, or audio. Your endpoint still matters: protect your device, browser, recovery material, and recipient access.
 
-[Explore Phone and EmailVM](communications.html) · [Read phone documentation](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/tkmphone.md)
+[Explore Phone and EmailVM](communications.html) · [Read phone documentation](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/docs/tkmphone.md)
 
 ## Build on familiar EVM rails
 
@@ -65,6 +66,12 @@ Ethereum-compatible contracts plus bounded deterministic native modules. [Explor
 ### Verifiable governance
 
 Rotating Kings, signed disclosures, checkpoints, and a permanent block-41913 boundary. [Explore governance](governance.html)
+
+### Validator registration
+
+Antartical validators use an ML-DSA-87 consensus envelope, a 500,000 TKM
+bond, a 720-block activation queue, and a 21,600-block unbonding period.
+[Read the validator operator guide](validators.html)
 
 ## Start with the tool you need
 

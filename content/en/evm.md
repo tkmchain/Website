@@ -63,7 +63,7 @@ encodings remain available for replay.
 
 ## Egypt EUSD test token
 
-The repository includes [`contracts/egypt/EUSD.sol`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/contracts/egypt/EUSD.sol), a six-decimal issuer-minted `TKM-20` test token. The Egypt rehearsal uses chain ID 8980, mints 1,000 EUSD, transfers 250 EUSD, verifies the 750/250 balances and unchanged supply, parses the runtime trailer, and checks that the direct asset ID equals the Antartical-gated `0x...f3` precompile result.
+The repository includes [`contracts/egypt/EUSD.sol`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/contracts/egypt/EUSD.sol), a six-decimal issuer-minted `TKM-20` test token. The Egypt rehearsal uses chain ID 8980, mints 1,000 EUSD, transfers 250 EUSD, verifies the 750/250 balances and unchanged supply, parses the runtime trailer, and checks that the direct asset ID equals the Antartical-gated `0x...f3` precompile result.
 
 Run the deterministic in-memory rehearsal from the repository root:
 
@@ -137,7 +137,7 @@ bytes32 id = TKMAssetIdentity.compute(
 );
 ```
 
-The helper is in [`contracts/tkm/TKMAsset.sol`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/contracts/tkm/TKMAsset.sol). The precompile is fork-gated, so deployment tools must handle it being unavailable before Antartical.
+The helper is in [`contracts/tkm/TKMAsset.sol`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/contracts/tkm/TKMAsset.sol). The precompile is fork-gated, so deployment tools must handle it being unavailable before Antartical.
 
 ## A safe deployment flow
 
@@ -149,4 +149,4 @@ The helper is in [`contracts/tkm/TKMAsset.sol`](https://github.com/tkmchain/go-t
 6. Cache the chain ID, contract, kind, manifest hash, and runtime code hash together.
 7. Require the sender and recipient's stamped status for private or policy-gated transfers.
 
-Read the full implementation reference in [`TKM_EVM_UNIQUENESS.md`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/TKM_EVM_UNIQUENESS.md).
+Read the full implementation reference in [`TKM_EVM_UNIQUENESS.md`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/docs/TKM_EVM_UNIQUENESS.md).

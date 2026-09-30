@@ -225,6 +225,7 @@ function layout(front, content, { language, assetPrefix, siteRoute }) {
         <a href="${href('developers')}" data-i18n="nav.developers">Developers</a>
         <a href="${href('evm')}" data-i18n="nav.evm">EVM</a>
         <a href="${href('governance')}" data-i18n="nav.governance">Governance</a>
+        <a href="${href('validators')}" data-i18n="nav.validators">Validators</a>
         <a href="${href('blog')}" data-i18n="nav.blog">Blog</a>
         <a href="${href('download')}" data-i18n="nav.downloads">Downloads</a>
         <a href="https://block.tkmchain.site" data-i18n="nav.explorer">Explorer</a>
@@ -246,7 +247,7 @@ ${content}
     <div class="container footer-grid">
       <div><div class="brand"><span class="brandmark">TK</span><span>TKMChain</span></div><p data-i18n="footer.tagline">Private programmable money, open infrastructure, and encrypted communications.</p></div>
       <div><h2 data-i18n="footer.use">Use</h2><a href="https://wallet.tkmchain.site" data-i18n="nav.wallet">Wallet</a><a href="https://block.tkmchain.site" data-i18n="nav.explorer">Explorer</a><a href="https://wallet.tkmchain.site/mail/">EmailVM</a></div>
-      <div><h2 data-i18n="footer.learn">Learn</h2><a href="${href('privacy')}">Shield3</a><a href="${href('network')}">Tor network</a><a href="${href('smart-accounts')}">Smart accounts</a><a href="${href('governance')}">Governance</a><a href="${href('blog')}">Field notes</a><a href="https://github.com/tkmchain/go-tkmchain">GitHub</a></div>
+      <div><h2 data-i18n="footer.learn">Learn</h2><a href="${href('privacy')}">Shield3</a><a href="${href('network')}">Tor network</a><a href="${href('smart-accounts')}">Smart accounts</a><a href="${href('governance')}">Governance</a><a href="${href('validators')}">Validators</a><a href="${href('blog')}">Field notes</a><a href="https://github.com/tkmchain/go-tkmchain">GitHub</a></div>
     </div>
     <div class="container footer-fine"><span>© 2026 TKMChain · ${escapeHTML(config.tkmchain.version)}</span><span>Chain ID 8979 · Finality through block 41913</span></div>
   </footer>

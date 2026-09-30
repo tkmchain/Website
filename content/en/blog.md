@@ -95,6 +95,14 @@ RIP-7560 execution. Their catalog entries and acceptance tests are visible,
 but nodes do not claim them as production consensus until the Egypt and
 multi-node rehearsals pass.
 
+For the operator-facing registration sequence, see [Validator registration](validators.html).
+The current release is **{{TKM_VERSION}}**. Its consensus registry uses a
+500,000 TKM bond, a 100 TKM burned registration fee, a 720-block activation
+queue, deterministic parent-hash selection, a halving-aware 70 TKM validator
+share, voluntary exit, 21,600-block unbonding, and evidence-based slashing.
+This page and the explorer must report those values from canonical state rather
+than from a locally cached dashboard.
+
 ## Stamp an address before using it
 
 1. Create or import an ML-DSA-87 account in the wallet. Legacy ECDSA accounts must migrate before they can use post-quantum private flows.

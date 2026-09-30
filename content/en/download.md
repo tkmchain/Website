@@ -19,6 +19,11 @@ Current TKMChain release: **{{TKM_VERSION}}**. Choose a build for your operating
 
 [View all TKMChain {{TKM_VERSION}} release contents]({{TKM_RELEASE_URL}})
 
+Operators who are preparing a validator should read the [validator registration
+guide](validators.html) before funding an ML-DSA-87 account. It documents the
+500,000 TKM bond, burned fee, activation queue, reward split, exit, unbonding,
+and slashing evidence.
+
 ## Fast bootstrap
 
 Download the official current-chain archive through Tor, then let `gtkm` verify
@@ -65,11 +70,11 @@ The miner connects to the configured TKM pool through Tor. Keep the supplied `co
 
 Install Tor for your operating system, start the service, and use an onion hostname in `--bootnodes`. Keep HTTP and WebSocket RPC bound to loopback unless a separate authenticated reverse proxy is required.
 
-[Read the Tor installation guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/TOR_INSTALLATION.md) · [Read the node privacy guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/PRIVACY_MODE.md)
+[Read the Tor installation guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/docs/TOR_INSTALLATION.md) · [Read the node privacy guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/docs/PRIVACY_MODE.md)
 
 ## Release source
 
-All release builds are produced by GitHub Actions from signed version tags. Review the [release workflow](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/.github/workflows/release.yml) and [source repository](https://github.com/tkmchain/go-tkmchain).
+All release builds are produced by GitHub Actions from signed version tags. Review the [release workflow](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/.github/workflows/release.yml) and [source repository](https://github.com/tkmchain/go-tkmchain).
 
 ## Debian and Ubuntu (APT)
 
@@ -134,6 +139,6 @@ Do not use `--nat=extip:<ip>`, public RPC bindings, wildcard origins, or
 `127.0.0.1:9050` as a peer address. Port `9050` is the local Tor SOCKS
 proxy; TKMChain peers use the onion service's P2P port, normally `3000`.
 
-See the full [APT installation guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/INSTALL_APT.md),
-[Tor installation guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/TOR_INSTALLATION.md),
-and [privacy deployment guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.3/docs/PRIVACY_MODE.md).
+See the full [APT installation guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/docs/INSTALL_APT.md),
+[Tor installation guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/docs/TOR_INSTALLATION.md),
+and [privacy deployment guide](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/docs/PRIVACY_MODE.md).
