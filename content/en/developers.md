@@ -26,7 +26,7 @@ The daemon exposes standard `eth`, `net`, `web3`, and `admin` methods alongside 
 
 Validator registration is a consensus envelope rather than a contract call.
 The wire payloads and state machine are documented in the [validator operator
-guide](validators.html) and implemented in [`core/validator_registry.go`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/core/validator_registry.go).
+guide](validators.html) and implemented in [`core/validator_registry.go`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.62/core/validator_registry.go).
 Use the node's local signer or IPC; never construct a registration from an
 untrusted web page.
 

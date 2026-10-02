@@ -63,7 +63,7 @@ head, and active validator feature before an operator signs a registration.
    this produces a deterministic rotation that every node can recompute.
 
 The registration payload and state encoding are defined in
-[`core/validator_registry.go`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.60/core/validator_registry.go).
+[`core/validator_registry.go`](https://github.com/tkmchain/go-tkmchain/blob/v1.21.62/core/validator_registry.go).
 Do not invent a different RLP layout or send a normal Ethereum transaction to
 the pool address.
 

@@ -112,6 +112,27 @@ than from a locally cached dashboard.
 
 An address with no confirmed stamp cannot send a value transfer or a Shield3/Shield4 withdrawal after Antartical. A recipient must also be stamped. Stamps are immutable registrations; choose the label carefully.
 
+## Print a Shield3 receiving address from the console wallet
+
+Release **v1.21.62** adds a read-only address display to the guided terminal
+wallet. Start a node, then run:
+
+```text
+./build/bin/gtkm wallet interactive
+```
+
+Choose **11) Show Shield3 address**, select the stamped ML-DSA-87 account, and
+enter that account's PQ password. The wallet derives and prints the public
+`tkmshield3.…` receiving code. Share that code with the payer; it is the
+authenticated Shield3 payment address and is different from the ordinary
+`0x…` ML-DSA account address shown under **Accounts**.
+
+The operation does not send a transaction, change the stamp, or expose a
+seed, private viewing key, or plaintext name/country. If the account is not
+an ML-DSA-87 account or its stamp is missing or unconfirmed, the wallet stops
+with an actionable error. Use **7) Stamp address** first, wait for its
+confirmation, and then return to **11) Show Shield3 address**.
+
 ## Register a Rotating King
 
 Rotating Kings are funded accounts selected by the consensus rotation
